@@ -1,6 +1,6 @@
-package com.scam.scam.model;
+package com.sacms.database;
 
-import com.scam.scam.util.AppDataDir;
+import com.sacms.util.AppDataDir;
 
 import java.sql.*;
 

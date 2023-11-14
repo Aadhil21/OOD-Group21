@@ -1,4 +1,4 @@
-package com.scam.scam.util;
+package com.sacms.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
