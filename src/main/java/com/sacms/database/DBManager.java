@@ -76,9 +76,6 @@ public class DBManager {
         final String createEventAttendance = "CREATE TABLE IF NOT EXISTS EventAttendance(event INTEGER, participant TEXT, " +
                 "FOREIGN KEY (event) REFERENCES Events(e_id), FOREIGN KEY (participant) REFERENCES Users(username), " +
                 "PRIMARY KEY (event, participant));";
-        final String createEventInvitation = "CREATE TABLE IF NOT EXISTS EventInvitation(event INTEGER, recipient TEXT, " +
-                "message TEXT, FOREIGN KEY (event) REFERENCES Events(e_id), FOREIGN KEY (recipient) REFERENCES Users(username), " +
-                "PRIMARY KEY (event, recipient));";
 
         executeSQLStatement(createUsers);
         executeSQLStatement(createClubs);
@@ -86,7 +83,6 @@ public class DBManager {
         executeSQLStatement(createMembers);
         executeSQLStatement(createEvents);
         executeSQLStatement(createEventAttendance);
-        executeSQLStatement(createEventInvitation);
 
         System.out.println("Created table");
     }
@@ -246,15 +242,6 @@ participant TEXT,
 FOREIGN KEY (event) REFERENCES Events(e_id),
 FOREIGN KEY (participant) REFERENCES Users(username),
 PRIMARY KEY (event, participant)
-);
-
-CREATE TABLE EventInvitation(
-event INTEGER,
-recipient TEXT,
-message TEXT,
-FOREIGN KEY (event) REFERENCES Events(e_id),
-FOREIGN KEY (recipient) REFERENCES Users(username),
-PRIMARY KEY (event, recipient)
 );
 
 * */
