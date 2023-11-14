@@ -4,6 +4,8 @@ module com.scam.scam {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
 
-    opens com.scam.scam to javafx.fxml;
-    exports com.scam.scam;
+    opens com.sacms to javafx.fxml;
+    exports com.sacms;
+    exports com.sacms.controllers;
+    opens com.sacms.controllers to javafx.fxml;
 }
