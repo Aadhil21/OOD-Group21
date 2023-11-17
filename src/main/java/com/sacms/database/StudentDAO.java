@@ -10,9 +10,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 
+/**
+ * The StudentDAO class is a DAO class for the Student model.
+ */
 public class StudentDAO extends UserDAO<Student> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    /**
+     * Insert a new {@link Student} into the database.
+     * @param student The {@link Student} to insert.
+     */
     @Override
     public void create(Student student) {
         final int username = student.getUid();

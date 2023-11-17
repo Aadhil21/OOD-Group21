@@ -2,8 +2,15 @@ package com.sacms.database;
 
 import com.sacms.models.EventAttendee;
 
+/**
+ * This class is responsible for handling database operations for the EventAttendance table.
+ */
 public class AttendanceDAO implements DAO<EventAttendee> {
     private static final DBManager dbManager = DBManager.getInstance();
+
+    /**
+     * Creates the EventAttendance table in the database if it does not exist.
+     */
     @Override
     public void createTable() {
         final String sqlStatement = "CREATE TABLE IF NOT EXISTS EventAttendance(event INTEGER, participant INTEGER, " +
@@ -12,6 +19,10 @@ public class AttendanceDAO implements DAO<EventAttendee> {
         dbManager.executeSQLStatement(sqlStatement);
     }
 
+    /**
+     * Creates a new {@link EventAttendee} entry in the database.
+     * @param attendee The {@link EventAttendee} object to be added to the database.
+     */
     @Override
     public void create(EventAttendee attendee) {
         final int event = attendee.event().getId();

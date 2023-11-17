@@ -5,6 +5,10 @@ import com.sacms.models.Advisor;
 public class AdvisorDAO extends UserDAO<Advisor> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    /**
+     * Inserts a new {@link Advisor} into the database.
+     * @param advisor The {@link Advisor} to be inserted.
+     */
     @Override
     public void create(Advisor advisor) {
         final int username = advisor.getUid();

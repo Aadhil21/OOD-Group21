@@ -7,8 +7,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 
+/**
+ * This class is responsible for handling all database operations related to the Events table.
+ */
 public class EventDAO implements DAO<Event> {
     private static final DBManager dbManager = DBManager.getInstance();
+
+    /**
+     * Creates the Events table in the database if it does not exist.
+     */
     @Override
     public void createTable() {
         final String eventsQuery = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
@@ -16,6 +23,10 @@ public class EventDAO implements DAO<Event> {
         dbManager.executeSQLStatement(eventsQuery);
     }
 
+    /**
+     * Inserts a new {@link Event} into the Events table.
+     * @param event The {@link Event} to be inserted.
+     */
     @Override
     public void create(Event event) {
         final int id = event.getId();
@@ -26,8 +37,10 @@ public class EventDAO implements DAO<Event> {
         final LocalTime startTime = event.getStartTime();
         final LocalTime endTime = event.getEndTime();
 
+        // Combining date and time into a single LocalDateTime object.
         final LocalDateTime eventStart = startDate.atTime(startTime);
         final LocalDateTime eventEnd = endDate.atTime(endTime);
+        // Converting LocalDateTime to epoch seconds.
         final long start = eventStart.toEpochSecond(ZoneOffset.UTC);
         final long end = eventEnd.toEpochSecond(ZoneOffset.UTC);
 

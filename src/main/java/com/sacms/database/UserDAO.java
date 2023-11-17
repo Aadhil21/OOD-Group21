@@ -1,8 +1,14 @@
 package com.sacms.database;
 
-import com.sacms.models.User;
 
+/**
+ * This class is the base class for all user DAOs.
+ * @param <T> The type of user to be stored in the database.
+ */
 public abstract class UserDAO<T> implements DAO<T> {
+    /**
+     * This method creates the table for the user type if the table does not already exist.
+     */
     @Override
     public void createTable() {
         final String usersQuery =

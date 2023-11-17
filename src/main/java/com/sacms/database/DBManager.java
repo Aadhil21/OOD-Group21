@@ -33,6 +33,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Executes an SQL query and returns the result set.
+     * @param sqlStatement The SQL statement to execute.
+     * @return The result set of the query.
+     */
     ResultSet executeSQLQuery(String sqlStatement) {
         Connection con = getConnection();
         if (con == null) return null;
@@ -46,6 +51,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * Executes an SQL statement.
+     * @param sqlStatement The SQL statement to execute.
+     */
     void executeSQLStatement(String sqlStatement) {
         Connection con = getConnection();
         if (con == null) return;
