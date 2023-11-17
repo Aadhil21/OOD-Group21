@@ -1,4 +1,4 @@
-package com.scam.scam.AttendanceTracker;
+package com.scam.scam;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
