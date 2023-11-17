@@ -61,37 +61,27 @@ public class DBManager {
 
 /*
 CREATE TABLE Users(
-username TEXT PRIMARY KEY,
+uid INTEGER PRIMARY KEY,
 first_name TEXT NOT NULL,
 last_name TEXT NOT NULL,
 phone TEXT NOT NULL,
 password TEXT NOT NULL,
-is_advisor INTEGER NOT NULL DEFAULT 0,
-is_student INTEGER NOT NULL DEFAULT 1
+birthday INTEGER,
+role TEXT NOT NULL,
 );
 
 CREATE TABLE Clubs(
 name TEXT PRIMARY KEY,
-advisor TEXT NOT NULL,
-FOREIGN KEY (advisor) REFERENCES users(username)
-);
-
-CREATE TABLE Positions(
-club TEXT,
-position TEXT,
-FOREIGN KEY (club) REFERENCES Clubs(name),
-PRIMARY KEY (club, position)
+advisor INTEGER NOT NULL,
+FOREIGN KEY (advisor) REFERENCES users(uid)
 );
 
 CREATE TABLE Members(
 club TEXT,
-student TEXT,
-start_date INTEGER,
-end_date INTEGER,
-position TEXT NOT NULL,
+student INTEGER
 FOREIGN KEY (club) REFERENCES Clubs(name),
-FOREIGN KEY (student) REFERENCES Users(username),
-PRIMARY KEY (club, student, start_date)
+FOREIGN KEY (student) REFERENCES Users(uid),
+PRIMARY KEY (club, student)
 );
 
 CREATE TABLE Events(
@@ -107,9 +97,9 @@ FOREIGN KEY (club) REFERENCES Clubs(name),
 
 CREATE TABLE EventAttendance(
 event INTEGER,
-participant TEXT,
+participant INTEGER,
 FOREIGN KEY (event) REFERENCES Events(e_id),
-FOREIGN KEY (participant) REFERENCES Users(username),
+FOREIGN KEY (participant) REFERENCES Users(uid),
 PRIMARY KEY (event, participant)
 );
 
