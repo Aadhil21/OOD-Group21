@@ -1,35 +1,36 @@
 package com.sacms.database;
 
-import javafx.css.StyleConverter;
-import javafx.fxml.Initializable;
+import com.sacms.models.Student;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 
-public class StudentDAO{
+public class StudentDAO extends UserDAO<Student> {
+    private static final DBManager dbManager = DBManager.getInstance();
 
-    public static void create(int studentId, String studentName,String studentPassword) {
-        Connection connection = Database.getConnection();
+    @Override
+    public void create(Student student) {
+        final int username = student.getUid();
+        final String password = student.getPassword();
+        final String firstName = student.getFirstName();
+        final String lastName = student.getLastName();
+        final String phone = student.getPhone();
+        final LocalDate birthday = student.getBirthday();
 
-        try (connection) {
-            // Define the SQL INSERT statement
-            String insertSQL = "INSERT INTO students (id, name, password) VALUES (?, ?, ?)";
+        final long birthday_epoch = birthday.toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC);
 
-            // Create a PreparedStatement to execute the INSERT statement
-            try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+        final String sqlStatement = String.format(
+            "INSERT INTO Users(uid, first_name, last_name, phone, password, birthday, role) " +
+            "VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'student');",
+            username, firstName, lastName, phone, password, birthday_epoch
+        );
 
-                // Set values for the parameters in the INSERT statement
-                preparedStatement.setInt(1, studentId);
-                preparedStatement.setString(2, studentName);
-                preparedStatement.setString(3, studentPassword);
-
-                // Execute the INSERT statement
-                preparedStatement.executeUpdate();
-
-                System.out.println("Student data inserted successfully.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Data insertion error: " + e.getMessage());
-        }
+        dbManager.executeSQLStatement(sqlStatement);
     }
 
     public static void retrieve() {
