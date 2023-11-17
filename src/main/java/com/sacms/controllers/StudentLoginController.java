@@ -37,7 +37,7 @@ public class StudentLoginController {
         String password = StudentPasswordField.getText();
 
         if (studentservice.StudentRegistered(idNo) == null) {
-            studentservice.RegisterStudent(idNo, name, password);
+            studentservice.RegisterStudent(idNo, name, "doe", "phone", password);
         }
     }
 }
