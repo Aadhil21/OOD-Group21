@@ -5,6 +5,7 @@ import java.nio.file.Files;
 
 public class AppDataDir {
     private static String appDataDir = null;
+    private static final String appDirName = "sacms-ood-test-1";
 
     private AppDataDir() {}
     public static String getAppDataDir() {
@@ -27,7 +28,7 @@ public class AppDataDir {
             appDataDir = System.getProperty("user.dir");
         }
 
-        appDataDir += "/scam-ood-cw";
+        appDataDir += appDirName;
 
         try {
             Files.createDirectories(java.nio.file.Path.of(appDataDir));
