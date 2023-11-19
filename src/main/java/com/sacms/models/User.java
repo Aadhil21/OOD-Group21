@@ -2,17 +2,17 @@ package com.sacms.models;
 
 public class User {
     private int id;
-    private String password;
-    private String phone;
     private String firstName;
     private String lastName;
+    private String phone;
+    private String password;
 
-    public User(int id, String password, String phone, String firstName, String lastName) {
+    public User(int id, String firstName, String lastName, String phone, String password) {
         this.id = id;
-        this.password = password;
-        this.phone = phone;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
+        this.password = password;
     }
 
     public int getUid() {
@@ -55,3 +55,4 @@ public class User {
         this.lastName = lastName;
     }
 }
+
