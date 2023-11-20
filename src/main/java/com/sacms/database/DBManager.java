@@ -8,8 +8,9 @@ public class DBManager {
     private static DBManager instance = null;
     private final String url;
 
-    public DBManager() {
+    private DBManager() {
         url = "jdbc:sqlite:" + AppDataDir.getAppDataDir() + "/scam-ood-cw.db";
+        populateDB();
     }
 
     /**
@@ -65,6 +66,33 @@ public class DBManager {
         } catch (SQLException e) {
             System.out.println("Error executing SQL statement: " + e);
         }
+    }
+    public void populateDB() {
+        final String createUsers = "CREATE TABLE IF NOT EXISTS Users(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
+                "phone TEXT NOT NULL, password TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'student', birthday TEXT);";
+
+        final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY, advisor INTEGER NOT NULL, " +
+                "FOREIGN KEY (advisor) REFERENCES users(uid));";
+
+        final String createMembers = "CREATE TABLE Members(club TEXT, student INTEGER FOREIGN KEY (club) REFERENCES Clubs(name), " +
+                "FOREIGN KEY (student) REFERENCES Users(uid), PRIMARY KEY (club, student));";
+
+        final String createEvents = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
+                "title TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, FOREIGN KEY (club) REFERENCES Clubs(name));";
+
+        final String createEventAttendance = "CREATE TABLE IF NOT EXISTS EventAttendance(event INTEGER, participant INTEGER, " +
+                "FOREIGN KEY (event) REFERENCES Events(e_id), FOREIGN KEY (participant) REFERENCES Users(uid), " +
+                "PRIMARY KEY (event, participant));";
+
+        final String createEventInvitation = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
+                "title TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, FOREIGN KEY (club) REFERENCES Clubs(name));";
+
+        executeSQLStatement(createUsers);
+        executeSQLStatement(createClubs);
+        executeSQLStatement(createMembers);
+        executeSQLStatement(createEvents);
+        executeSQLStatement(createEventAttendance);
+        executeSQLStatement(createEventInvitation);
     }
 }
 

@@ -1,9 +1,12 @@
 package com.sacms.controllers;
 
+import com.sacms.Main;
 import com.sacms.database.LoginManager;
 import com.sacms.models.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -17,6 +20,7 @@ public class MainLoginController {
 
     @FXML
     protected void signIn(ActionEvent actionEvent) {
+
         int UserId = Integer.parseInt(uid.getText());
         String UserPassword = password.getText();
 

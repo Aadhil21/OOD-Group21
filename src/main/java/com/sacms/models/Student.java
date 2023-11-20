@@ -21,6 +21,7 @@ public class Student extends User {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
+
     public static Student registeredStudent(int uid, String password){
         Student student = DAO.retrieveStudentByID(uid);
         if (student.getPassword().equals(password)){
