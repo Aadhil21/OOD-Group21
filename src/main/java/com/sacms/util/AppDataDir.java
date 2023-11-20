@@ -12,7 +12,6 @@ public class AppDataDir {
         if (appDataDir == null) {
             setAppDataDir();
         }
-
         return appDataDir;
     }
 
@@ -28,7 +27,7 @@ public class AppDataDir {
             appDataDir = System.getProperty("user.dir");
         }
 
-        appDataDir += appDirName;
+        appDataDir += "/" + appDirName;
 
         try {
             Files.createDirectories(java.nio.file.Path.of(appDataDir));
