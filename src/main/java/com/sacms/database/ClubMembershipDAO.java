@@ -13,8 +13,9 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
      */
     @Override
     public void createTable() {
-        final String sqlStatement = "CREATE TABLE Members(club TEXT, student INTEGER FOREIGN KEY (club) REFERENCES Clubs(name), " +
-                "FOREIGN KEY (student) REFERENCES Users(uid), PRIMARY KEY (club, student));";
+        final String sqlStatement = "CREATE TABLE IF NOT EXISTS Members(club TEXT, student INTEGER, " +
+                "FOREIGN KEY (club) REFERENCES Clubs(name), FOREIGN KEY (student) REFERENCES Users(uid), " +
+                "PRIMARY KEY (club, student));";
         dbManager.executeSQLStatement(sqlStatement);
     }
 
