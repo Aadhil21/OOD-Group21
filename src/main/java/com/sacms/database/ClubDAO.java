@@ -9,20 +9,6 @@ import com.sacms.models.Club;
 public class ClubDAO implements DAO<Club>{
     private static final DBManager dbManager = DBManager.getInstance();
 
-    /**
-     * Creates the Clubs table in the database if it does not already exist.
-     */
-    @Override
-    public void createTable() {
-        final String sqlStatement = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY, advisor INTEGER NOT NULL, " +
-                "FOREIGN KEY (advisor) REFERENCES users(uid));";
-        dbManager.executeSQLStatement(sqlStatement);
-    }
-
-    /**
-     * Creates a new {@link Club} in the database.
-     * @param club The {@link Club} to be created.
-     */
     @Override
     public void create(Club club) {
         final String name = club.getName();
@@ -34,5 +20,20 @@ public class ClubDAO implements DAO<Club>{
         );
 
         dbManager.executeSQLStatement(sqlStatement);
+    }
+
+    @Override
+    public Club read(int i) {
+        return null;
+    }
+
+    @Override
+    public void update(Club club) {
+
+    }
+
+    @Override
+    public void delete(Club club) {
+
     }
 }

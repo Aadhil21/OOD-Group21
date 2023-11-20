@@ -67,15 +67,19 @@ public class DBManager {
             System.out.println("Error executing SQL statement: " + e);
         }
     }
+
     public void populateDB() {
-        final String createUsers = "CREATE TABLE IF NOT EXISTS Users(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
-                "phone TEXT NOT NULL, password TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'student', birthday TEXT);";
+        final String createStudent = "CREATE TABLE IF NOT EXISTS Student(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
+                "phone TEXT NOT NULL,email TEXT NOT NULL, password TEXT NOT NULL);";
+
+        final String createAdvisor = "CREATE TABLE IF NOT EXISTS Advisor(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
+                "phone TEXT NOT NULL,email TEXT NOT NULL, password TEXT NOT NULL);";
 
         final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY, advisor INTEGER NOT NULL, " +
-                "FOREIGN KEY (advisor) REFERENCES users(uid));";
+                "FOREIGN KEY (advisor) REFERENCES Advisor(uid));";
 
-        final String createMembers = "CREATE TABLE Members(club TEXT, student INTEGER FOREIGN KEY (club) REFERENCES Clubs(name), " +
-                "FOREIGN KEY (student) REFERENCES Users(uid), PRIMARY KEY (club, student));";
+        final String createMembers = "CREATE TABLE IF NOT EXISTS Members(club TEXT, student INTEGER, FOREIGN KEY (club) REFERENCES Clubs(name), " +
+                "FOREIGN KEY (student) REFERENCES Student(uid), PRIMARY KEY (club, student));";
 
         final String createEvents = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
                 "title TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, FOREIGN KEY (club) REFERENCES Clubs(name));";
@@ -87,7 +91,8 @@ public class DBManager {
         final String createEventInvitation = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
                 "title TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, FOREIGN KEY (club) REFERENCES Clubs(name));";
 
-        executeSQLStatement(createUsers);
+        executeSQLStatement(createStudent);
+        executeSQLStatement(createAdvisor);
         executeSQLStatement(createClubs);
         executeSQLStatement(createMembers);
         executeSQLStatement(createEvents);
