@@ -3,6 +3,8 @@ package com.sacms.database;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 
+import java.sql.ResultSet;
+
 /**
  * This class is responsible for handling all database operations related to the Club model.
  */
@@ -36,11 +38,15 @@ public class ClubDAO implements DAO<Club>{
 
     @Override
     public void update(Club club) {
-
     }
 
     @Override
     public void delete(Club club) {
+    }
 
+    public ResultSet GetMembershipReport(String ClubName){
+        final String getMembers = String.format("SELECT student FROM Members WHERE club = %s",ClubName);
+        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
+        return resultSet;
     }
 }
