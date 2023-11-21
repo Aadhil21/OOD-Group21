@@ -29,7 +29,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        DBManager db = DBManager.getInstance();
         launch();
     }
 }

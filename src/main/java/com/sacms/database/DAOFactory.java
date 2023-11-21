@@ -13,12 +13,12 @@ public class DAOFactory {
     private final StudentDAO studentDAO;
 
     private DAOFactory() {
-        this.advisorDAO = AdvisorDAO.getInstance();
+        this.advisorDAO = new AdvisorDAO();
         this.clubDAO = new ClubDAO();
         this.clubMembershipDAO = new ClubMembershipDAO();
         this.eventDAO = new EventDAO();
         this.attendanceDAO = new AttendanceDAO();
-        this.studentDAO = StudentDAO.getInstance();
+        this.studentDAO = new StudentDAO();
     }
 
     public static DAOFactory getInstance() {
