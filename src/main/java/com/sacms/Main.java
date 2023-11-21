@@ -21,7 +21,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        ScreenController screenController = new ScreenController(stage);
+        ScreenController screenController = ScreenController.getInstance();
+        screenController.setStage(stage);
+
         screenController.addScreen("Login", getClass().getResource("LoginView.fxml"));
         screenController.addScreen("SignUp", getClass().getResource("SignUpView.fxml"));
         screenController.addScreen("AdvisorDashboard", getClass().getResource("view/AdvisorDashboard.fxml"));

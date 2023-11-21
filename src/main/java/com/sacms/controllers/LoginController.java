@@ -24,6 +24,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField uid;
+    private final ScreenController screenController = ScreenController.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,7 +45,7 @@ public class LoginController implements Initializable {
                     Student student = Student.getStudent(userID, userPassword);
                     if (student != null) {
                         LoginManager.getInstance().login(student);
-                        ScreenController.activate("StudentDashboard");
+                        screenController.activate("StudentDashboard");
                     }
                     break;
 
@@ -52,7 +53,7 @@ public class LoginController implements Initializable {
                     Advisor advisor = Advisor.getAdvisor(userID, userPassword);
                     if (advisor != null) {
                         LoginManager.getInstance().login(advisor);
-                        ScreenController.activate("AdvisorDashboard");
+                        screenController.activate("AdvisorDashboard");
                     }
                     break;
 
@@ -68,7 +69,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void signUp(ActionEvent event) {
-        ScreenController.activate("SignUp");
+        screenController.activate("SignUp");
     }
 
 }
