@@ -3,7 +3,7 @@ package com.sacms.models;
 import com.sacms.database.AdvisorDAO;
 
 public class Advisor extends User {
-    static AdvisorDAO advisorDAO = AdvisorDAO.getInstance();
+    static AdvisorDAO advisorDAO = new AdvisorDAO();
 
     public Advisor(int uid, String firstName, String lastName, String phone, String email, String password) {
         super(uid, firstName, lastName, phone, email, password);

@@ -9,19 +9,6 @@ import java.sql.SQLException;
 public class AdvisorDAO extends UserDAO<Advisor> {
 
     private static final DBManager dbManager = DBManager.getInstance();
-    private static AdvisorDAO instance = null;
-
-    private AdvisorDAO() {
-    }
-
-    // Method to get the singleton instance of AdvisorDAO
-    public static synchronized AdvisorDAO getInstance() {
-
-        if (instance == null) {
-            instance = new AdvisorDAO();
-        }
-        return instance;
-    }
 
     @Override
     public void createTable() {
