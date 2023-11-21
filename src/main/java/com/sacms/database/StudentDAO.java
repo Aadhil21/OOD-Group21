@@ -10,6 +10,19 @@ import java.sql.SQLException;
  */
 public class StudentDAO extends UserDAO<Student> {
     private static final DBManager dbManager = DBManager.getInstance();
+    private static StudentDAO instance = null;
+
+    private StudentDAO() {
+    }
+
+    // Method to get the singleton instance of AdvisorDAO
+    public static synchronized StudentDAO getInstance() {
+
+        if (instance == null) {
+            instance = new StudentDAO();
+        }
+        return instance;
+    }
 
     @Override
     public void create(Student student) {
@@ -36,7 +49,6 @@ public class StudentDAO extends UserDAO<Student> {
             ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement);
             System.out.println("Query executed");
 
-            // Check if the ResultSet has data
             if (resultSet.next()) {
                 // Read data from the ResultSet and create a Student object
                 int userID = resultSet.getInt("uid");
@@ -57,6 +69,7 @@ public class StudentDAO extends UserDAO<Student> {
         }
         return null;
     }
+
 
 
     @Override

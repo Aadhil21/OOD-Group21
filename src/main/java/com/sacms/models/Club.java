@@ -4,6 +4,7 @@ public class Club {
     private String name;
     private Advisor advisor;
 
+
     public Club(String name, Advisor advisor) {
         this.name = name;
         this.advisor = advisor;

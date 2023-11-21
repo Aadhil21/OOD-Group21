@@ -44,37 +44,37 @@ public class SignUpController implements Initializable {
     @FXML
     void signIn(ActionEvent event) {
         ScreenController.activate("Login");
-
     }
 
     @FXML
     void signUp(ActionEvent event) {
-        int userID = Integer.parseInt(uid.getText());
-        String userFirstName = firstName.getText();
-        String userLastName = lastName.getText();
-        String userPhoneNo = phoneNo.getText();
-        String userEmail = email.getText();
-        String userPassword = password.getText();
-        String role = roles.getValue();
-
         try {
+            int userID = Integer.parseInt(uid.getText());
+            String userFirstName = firstName.getText();
+            String userLastName = lastName.getText();
+            String userPhoneNo = phoneNo.getText();
+            String userEmail = email.getText();
+            String userPassword = password.getText();
+            String role = roles.getValue();
+
             if (role.equals("Student")) {
                 Student student = new Student(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (Student.setStudent(student) != null) {
                     LoginManager.getInstance().login(student);
                     ScreenController.activate("Login");
                 }
-            }
-            else if (role.equals("Advisor")) {
-                Advisor advisor = new Advisor(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);;
+            } else if (role.equals("Advisor")) {
+                Advisor advisor = new Advisor(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (Advisor.setAdvisor(advisor) != null) {
                     LoginManager.getInstance().login(advisor);
                     ScreenController.activate("Login");
                 }
             }
-        }
-        catch (Exception e) {
-            new Alert(Alert.AlertType.WARNING, "Warning: Profile doesn't exist", ButtonType.OK).showAndWait();
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a valid User ID", ButtonType.OK).showAndWait();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.WARNING, "Warning: Failed to create profile", ButtonType.OK).showAndWait();
         }
     }
+
 }

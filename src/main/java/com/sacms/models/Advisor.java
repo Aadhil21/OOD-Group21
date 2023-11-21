@@ -3,7 +3,7 @@ package com.sacms.models;
 import com.sacms.database.AdvisorDAO;
 
 public class Advisor extends User {
-    static AdvisorDAO DAO = new AdvisorDAO();
+    static AdvisorDAO advisorDAO = AdvisorDAO.getInstance();
 
     public Advisor(int uid, String firstName, String lastName, String phone, String email, String password) {
         super(uid, firstName, lastName, phone, email, password);
@@ -11,11 +11,11 @@ public class Advisor extends User {
 
     public static Advisor getAdvisor(int uid, String pass) {
         try {
-            Advisor advisor = DAO.read(uid);
-            if(advisor.getPassword().equals(pass)){
+            Advisor advisor = advisorDAO.read(uid);
+            if (advisor != null && advisor.getPassword().equals(pass)) {
                 return advisor;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
         return null;
@@ -23,11 +23,12 @@ public class Advisor extends User {
 
     public static Advisor setAdvisor(Advisor advisor) {
         try {
-            DAO.create(advisor);
+            advisorDAO.create(advisor);
             return advisor;
         } catch (Exception e) {
             return null;
         }
     }
+
 
 }

@@ -9,6 +9,19 @@ import java.sql.SQLException;
 public class AdvisorDAO extends UserDAO<Advisor> {
 
     private static final DBManager dbManager = DBManager.getInstance();
+    private static AdvisorDAO instance = null;
+
+    private AdvisorDAO() {
+    }
+
+    // Method to get the singleton instance of AdvisorDAO
+    public static synchronized AdvisorDAO getInstance() {
+
+        if (instance == null) {
+            instance = new AdvisorDAO();
+        }
+        return instance;
+    }
 
     /**
      * Inserts a new {@link Advisor} into the database.
@@ -38,9 +51,8 @@ public class AdvisorDAO extends UserDAO<Advisor> {
             ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement);
             System.out.println("Query executed");
 
-            // Check if the ResultSet has data
             if (resultSet.next()) {
-                // Read data from the ResultSet and create a Student object
+                // Read data from the ResultSet and create an Advisor object
                 int userID = resultSet.getInt("uid");
                 String fname = resultSet.getString("first_name");
                 String lname = resultSet.getString("last_name");
@@ -59,6 +71,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         }
         return null;
     }
+
 
     @Override
     public void update(Advisor advisor) {

@@ -6,7 +6,10 @@ import com.sacms.models.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,35 +32,37 @@ public class LoginController implements Initializable {
         roles.setValue("Student");
     }
 
-
     @FXML
     void signIn(ActionEvent event) {
         try {
             int userID = Integer.parseInt(uid.getText());
-            String pass = password.getText();
+            String userPassword = password.getText();
             String role = roles.getValue();
 
-            if (role.equals("Student")) {
-                Student student = Student.getStudent(userID, pass);
+            switch (role) {
+                case "Student":
+                    Student student = Student.getStudent(userID, userPassword);
+                    if (student != null) {
+                        LoginManager.getInstance().login(student);
+                        ScreenController.activate("StudentDashboard");
+                    }
+                    break;
 
-                if (student != null) {
-                    LoginManager.getInstance().login(student);
-                    ScreenController.activate("StudentDashboard");
-                }
-            }
-            else if (role.equals("Advisor")) {
-                Advisor advisor = Advisor.getAdvisor(userID, pass);
+                case "Advisor":
+                    Advisor advisor = Advisor.getAdvisor(userID, userPassword);
+                    if (advisor != null) {
+                        LoginManager.getInstance().login(advisor);
+                        ScreenController.activate("AdvisorDashboard");
+                    }
+                    break;
 
-                if (advisor != null) {
-                    LoginManager.getInstance().login(advisor);
-                    ScreenController.activate("AdvisorDashboard");
-                }
+                default:
+                    throw new Exception();
             }
-            else {
-                throw new Exception();
-            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a valid User ID").showAndWait();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.WARNING, "Warning: Profile doesn't exist", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, "Warning: Profile doesn't exist").showAndWait();
         }
     }
 
