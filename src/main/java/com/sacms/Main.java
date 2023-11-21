@@ -23,7 +23,7 @@ public class Main extends Application {
         ScreenController screenController = new ScreenController(scene);
         screenController.addScreen("Login", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginView.fxml"))));
         screenController.addScreen("SignUp", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpView.fxml"))));
-        screenController.addScreen("AdvisorDashboard", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/AdvisorDashboard.fxml"))));
+        screenController.addScreen("AdvisorDashboard", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/AdvisorDashboard.fxml"))));
         screenController.addScreen("StudentDashboard", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StudentDashboard.fxml"))));
         screenController.addScreen("JoinClub", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("JoinClubView.fxml"))));
     }
