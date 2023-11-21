@@ -50,4 +50,9 @@ public class ScreenController {
             throw new RuntimeException(e); // kills the program
         }
     }
+
+    public void activate(String name, boolean isMaximized) {
+        activate(name);
+        stage.setMaximized(isMaximized);
+    }
 }

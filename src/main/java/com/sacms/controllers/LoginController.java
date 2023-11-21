@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
                     Advisor advisor = Advisor.getAdvisor(userID, userPassword);
                     if (advisor != null) {
                         LoginManager.getInstance().login(advisor);
-                        screenController.activate("AdvisorDashboard");
+                        screenController.activate("AdvisorDashboard", true);
                     }
                     break;
 
@@ -63,6 +63,7 @@ public class LoginController implements Initializable {
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.WARNING, "Please enter a valid User ID").showAndWait();
         } catch (Exception e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.WARNING, "Warning: Profile doesn't exist").showAndWait();
         }
     }
