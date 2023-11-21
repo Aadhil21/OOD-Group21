@@ -10,7 +10,6 @@ public class DBManager {
 
     private DBManager() {
         url = "jdbc:sqlite:" + AppDataDir.getAppDataDir() + "/scam-ood-cw.db";
-        DAOFactory.getInstance().generateTables();
     }
 
     /**

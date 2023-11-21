@@ -5,7 +5,7 @@ import java.nio.file.Files;
 
 public class AppDataDir {
     private static String appDataDir = null;
-    private static final String appDirName = "sacms-ood-test-1";
+    private static final String appDirName = "sacms-ood-test-2";
 
     private AppDataDir() {}
     public static String getAppDataDir() {

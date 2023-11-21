@@ -1,6 +1,7 @@
 package com.sacms;
 
 import com.sacms.controllers.ScreenController;
+import com.sacms.database.DAOFactory;
 import com.sacms.database.DBManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        DAOFactory.getInstance().generateTables();
         launch();
     }
 }
