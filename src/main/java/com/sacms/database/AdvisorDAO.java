@@ -1,10 +1,12 @@
 package com.sacms.database;
 
 import com.sacms.models.Advisor;
-import com.sacms.models.Student;
+import com.sacms.models.Club;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdvisorDAO extends UserDAO<Advisor> {
 
@@ -19,7 +21,6 @@ public class AdvisorDAO extends UserDAO<Advisor> {
 
     /**
      * Inserts a new {@link Advisor} into the database.
-     *
      * @param advisor The {@link Advisor} to be inserted.
      */
     @Override
@@ -75,5 +76,31 @@ public class AdvisorDAO extends UserDAO<Advisor> {
     @Override
     public void delete(Advisor advisor) {
 
+    }
+
+    /**
+     * Returns a list of all the clubs that the given advisor is the advisor of.
+     *
+     * @param advisor The advisor to get the clubs of.
+     * @return A list of all the clubs that the given advisor is the advisor of.
+     */
+    public List<Club> getClubs(Advisor advisor) {
+        final List<Club> clubs = new ArrayList<>();
+
+        final String sqlStatement = String.format(
+            "SELECT * FROM Clubs WHERE advisor = %d;", advisor.getUid()
+        );
+
+        try (ResultSet results = dbManager.executeSQLQuery(sqlStatement)) {
+            while (results.next()) {
+                String clubName = results.getString("name");
+                Club club = new Club(clubName, advisor);
+                clubs.add(club);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clubs;
     }
 }
