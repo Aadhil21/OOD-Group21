@@ -38,17 +38,11 @@ public class DBManager {
      * @param sqlStatement The SQL statement to execute.
      * @return The result set of the query.
      */
-    ResultSet executeSQLQuery(String sqlStatement) {
+    ResultSet executeSQLQuery(String sqlStatement) throws SQLException {
         Connection con = getConnection();
         if (con == null) return null;
-
-        try {
-            Statement stmt =  con.createStatement();
-            return stmt.executeQuery(sqlStatement);
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL statement: " + e);
-            return null;
-        }
+        Statement stmt =  con.createStatement();
+        return stmt.executeQuery(sqlStatement);
     }
 
     /**
