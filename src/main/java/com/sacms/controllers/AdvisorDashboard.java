@@ -1,5 +1,7 @@
 package com.sacms.controllers;
 
+import com.sacms.database.LoginManager;
+import com.sacms.models.Advisor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,6 +54,24 @@ public class AdvisorDashboard {
     @FXML private TableColumn<?, ?> tcol_lastName;
     @FXML private TableColumn<?, ?> tcol_phoneNumber;
     @FXML private TableColumn<?, ?> tcol_studentId;
+
+    private final LoginManager loginManager;
+
+    public AdvisorDashboard() {
+        loginManager = LoginManager.getInstance();
+    }
+    public void initialize() {
+        System.out.println("AdvisorDashboard initialized");
+        Advisor advisor = (Advisor) loginManager.getCurrentUser();
+
+        if (advisor.getClubs().isEmpty()) {
+            vbox_noClubView.setVisible(true);
+            vbox_clubAdvisorView.setVisible(false);
+        } else {
+            vbox_noClubView.setVisible(false);
+            vbox_clubAdvisorView.setVisible(true);
+        }
+    }
 
     @FXML
     void onBtnAddAttendance(ActionEvent event) {
