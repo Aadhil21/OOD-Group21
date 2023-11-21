@@ -9,6 +9,14 @@ public class AttendanceDAO implements DAO<EventAttendee> {
     private static final DBManager dbManager = DBManager.getInstance();
 
     @Override
+    public void createTable() {
+        final String createEventAttendance = "CREATE TABLE IF NOT EXISTS EventAttendance(event INTEGER, participant INTEGER, " +
+            "FOREIGN KEY (event) REFERENCES Events(e_id), FOREIGN KEY (participant) REFERENCES Users(uid), " +
+            "PRIMARY KEY (event, participant));";
+        dbManager.executeSQLStatement(createEventAttendance);
+    }
+
+    @Override
     public void create(EventAttendee attendee) {
         final int event = attendee.event().getId();
         final int student = attendee.student().getUid();

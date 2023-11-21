@@ -10,6 +10,13 @@ public class ClubDAO implements DAO<Club>{
     private static final DBManager dbManager = DBManager.getInstance();
 
     @Override
+    public void createTable(){
+        final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY, advisor INTEGER NOT NULL, " +
+            "FOREIGN KEY (advisor) REFERENCES Advisor(uid));";
+        dbManager.executeSQLStatement(createClubs);
+    }
+
+    @Override
     public void create(Club club) {
         final String name = club.getName();
         final int advisorId = club.getAdvisor().getUid();

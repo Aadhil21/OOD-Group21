@@ -10,6 +10,13 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
 
 
     @Override
+    public void createTable() {
+        final String createMembers = "CREATE TABLE IF NOT EXISTS Members(club TEXT, student INTEGER, FOREIGN KEY (club) REFERENCES Clubs(name), " +
+            "FOREIGN KEY (student) REFERENCES Student(uid), PRIMARY KEY (club, student));";
+        dbManager.executeSQLStatement(createMembers);
+    }
+
+    @Override
     public void create(ClubMembership membership) {
         final String club = membership.club().getName();
         final int student = membership.student().getUid();

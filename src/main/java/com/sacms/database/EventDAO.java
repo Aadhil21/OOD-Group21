@@ -13,6 +13,12 @@ import java.time.ZoneOffset;
 public class EventDAO implements DAO<Event> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    @Override
+    public void createTable() {
+        final String createEvents = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +
+            "title TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, FOREIGN KEY (club) REFERENCES Clubs(name));";
+        dbManager.executeSQLStatement(createEvents);
+    }
 
     public void create(Event event) {
         final int id = event.getId();

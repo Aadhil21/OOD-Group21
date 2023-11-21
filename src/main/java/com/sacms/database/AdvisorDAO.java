@@ -23,6 +23,13 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         return instance;
     }
 
+    @Override
+    public void createTable() {
+        final String createSql = "CREATE TABLE IF NOT EXISTS Advisor(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
+                "phone TEXT NOT NULL,email TEXT NOT NULL, password TEXT NOT NULL);";
+        dbManager.executeSQLStatement(createSql);
+    }
+
     /**
      * Inserts a new {@link Advisor} into the database.
      *

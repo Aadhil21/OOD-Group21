@@ -25,6 +25,13 @@ public class StudentDAO extends UserDAO<Student> {
     }
 
     @Override
+    public void createTable() {
+        final String createStudent = "CREATE TABLE IF NOT EXISTS Student(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
+                "phone TEXT NOT NULL,email TEXT NOT NULL, password TEXT NOT NULL);";
+        dbManager.executeSQLStatement(createStudent);
+    }
+
+    @Override
     public void create(Student student) {
         final int username = student.getUid();
         final String firstName = student.getFirstName();
