@@ -8,12 +8,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class AdvisorDashboard {
+    @FXML private VBox vbox_noClubView;
+    @FXML private VBox vbox_clubAdvisorView;
+
+    // No club yet view
+    @FXML private Label lbl_noClubView_username;
+    @FXML private Button btn_noClubView_createClub;
+
     // Club title panel buttons and labels
     @FXML private Button btn_createEvent;
     @FXML private Button btn_generateClubReport;
     @FXML private Label lbl_clubName;
+
+    @FXML private VBox vbox_events_noEventMsgView;
+    @FXML private VBox vbox_events_eventView;
 
     // Event panel buttons
     @FXML private Button btn_addAttendance;
@@ -77,4 +88,8 @@ public class AdvisorDashboard {
 
     }
 
+    @FXML
+    void onNoClubViewCreateClub(ActionEvent event) {
+
+    }
 }
