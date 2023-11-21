@@ -29,13 +29,24 @@ public class DAOFactory {
         return instance;
     }
 
-    public DAO<?> getDAO(Class<?> dao) {
-        if (dao == Advisor.class) return this.advisorDAO;
-        if (dao == Club.class) return this.clubDAO;
-        if (dao == ClubMembership.class) return this.clubMembershipDAO;
-        if (dao == Event.class) return this.eventDAO;
-        if (dao == EventAttendee.class) return this.attendanceDAO;
-        if (dao == Student.class) return this.studentDAO;
+    /**
+     * Returns the DAO of the specified type. If the DAO does not exist, null is returned.<br>
+     * Example: <br>
+     * {@code DAO<Student> studentDAO = DAOFactory.getInstance().getDAO(Student.class);}
+     * @param dao The type of DAO to return. Must be one of the data entity classes.
+     * @param <T> The type of Data entity class which the required DAO corresponds to.
+     * @return The DAO of the specified type.
+     */
+    @SuppressWarnings("unchecked")
+    /* It is guaranteed that the DAOs will be of the correct type by the if conditions.
+    When doing any development here, comment out the annotation to get editor warnings */
+    public <T> DAO<T> getDAO(Class<T> dao) {
+        if (dao == Advisor.class) return (DAO<T>) this.advisorDAO;
+        if (dao == Club.class) return (DAO<T>) this.clubDAO;
+        if (dao == ClubMembership.class) return (DAO<T>) this.clubMembershipDAO;
+        if (dao == Event.class) return (DAO<T>) this.eventDAO;
+        if (dao == EventAttendee.class) return (DAO<T>) this.attendanceDAO;
+        if (dao == Student.class) return (DAO<T>) this.studentDAO;
 
         return null;
     }
