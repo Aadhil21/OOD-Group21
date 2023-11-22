@@ -2,6 +2,7 @@ package com.sacms.database;
 
 import com.sacms.models.Event;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -61,5 +62,10 @@ public class EventDAO implements DAO<Event> {
     @Override
     public void delete(Event event) {
 
+    }
+    public static ResultSet GetAttendanceReport(String eventName){
+        final String getMembers = String.format("SELECT student FROM EventAttendance WHERE title = %s",eventName);
+        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
+        return resultSet;
     }
 }

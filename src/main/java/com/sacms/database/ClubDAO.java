@@ -49,4 +49,10 @@ public class ClubDAO implements DAO<Club>{
         ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
         return resultSet;
     }
+
+    public static ResultSet GetEvents(String ClubName){
+        final String getMembers = String.format("SELECT title FROM Events WHERE club = %s",ClubName);
+        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
+        return resultSet;
+    }
 }

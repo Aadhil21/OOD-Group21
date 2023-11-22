@@ -1,6 +1,10 @@
 package com.sacms.models;
 
+import com.sacms.database.AttendanceDAO;
 import com.sacms.database.ClubDAO;
+import com.sacms.database.EventDAO;
+import com.sacms.util.CreateReport;
+import com.sacms.util.DateTimeUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -10,8 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Club {
     static ClubDAO clubDAO = new ClubDAO();
@@ -43,55 +45,14 @@ public class Club {
 
     public void ClubMembership() {
 //        club membership, event attendance, and club activities
+        String excelFilePath = "Report/" + this.name + "MembershipReport" + DateTimeUtils.getDateTime() + ".xlsx";
+        ResultSet resultSet = clubDAO.GetMembershipReport(this.name);
+        CreateReport.CreateExcel(resultSet,excelFilePath);
+    }
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formattedDateTime = currentDateTime.format(formatter);
-
-        String excelFilePath = this.name + "MembershipReport"+ formattedDateTime +".xlsx";
-
-        try {
-            ResultSet resultSet= clubDAO.GetMembershipReport(this.name);
-
-            // Create a new Excel workbook and sheet
-            Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Members");
-
-            // Get metadata to fetch column names
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            // Create headers in Excel sheet
-            Row headerRow = sheet.createRow(0);
-            for (int i = 1; i <= columnCount; i++) {
-                String columnName = metaData.getColumnName(i);
-                headerRow.createCell(i - 1).setCellValue(columnName);
-            }
-
-            // Populate data rows in Excel sheet
-            int rowNum = 1;
-            while (resultSet.next()) {
-                Row row = sheet.createRow(rowNum++);
-                for (int i = 1; i <= columnCount; i++) {
-                    Object value = resultSet.getObject(i);
-                    Cell cell = row.createCell(i - 1);
-                    if (value instanceof String) {
-                        cell.setCellValue((String) value);
-                    } else if (value instanceof Integer) {
-                        cell.setCellValue((Integer) value);
-                    } // Add other data types as needed
-                }
-            }
-
-            // Write data to Excel file
-            try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
-                workbook.write(outputStream);
-            }
-
-            System.out.println("Excel file created successfully!");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void ClubActivity(){
+        String excelFilePath = "Report/" + this.name + "ClubEvents" + DateTimeUtils.getDateTime() + ".xlsx";
+        ResultSet resultSet = ClubDAO.GetEvents(this.name);
+        CreateReport.CreateExcel(resultSet,excelFilePath);
     }
 }
