@@ -65,9 +65,4 @@ public class EventDAO implements DAO<Event> {
     public void delete(Event event) {
 
     }
-    public static ResultSet GetAttendanceReport(String eventName) throws SQLException {
-        final String getMembers = String.format("SELECT student FROM EventAttendance WHERE title = %s",eventName);
-        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
-        return resultSet;
-    }
 }

@@ -44,16 +44,4 @@ public class Club {
         this.advisor = advisor;
     }
 
-    public void ClubMembership() throws SQLException {
-//        club membership, event attendance, and club activities
-        String excelFilePath = "Report/" + this.name + "MembershipReport" + DateTimeUtils.getDateTime() + ".xlsx";
-        ResultSet resultSet = clubDAO.GetMembershipReport(this.name);
-        CreateReport.CreateExcel(resultSet,excelFilePath);
-    }
-
-    public void ClubActivity() throws SQLException {
-        String excelFilePath = "Report/" + this.name + "ClubEvents" + DateTimeUtils.getDateTime() + ".xlsx";
-        ResultSet resultSet = ClubDAO.GetEvents(this.name);
-        CreateReport.CreateExcel(resultSet,excelFilePath);
-    }
 }

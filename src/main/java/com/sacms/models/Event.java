@@ -107,11 +107,4 @@ public class Event {
         attendanceDAO.create(eventAttendee);
         attendees.add(student);
     }
-
-    public void EventAttendance() throws SQLException {
-        String excelFilePath = "Report/" + this.title + "EventAttendance" + DateTimeUtils.getDateTime() + ".xlsx";
-        ResultSet resultSet = EventDAO.GetAttendanceReport(this.title);
-        CreateReport.CreateExcel(resultSet,excelFilePath);
-    }
-
 }

@@ -45,15 +45,4 @@ public class ClubDAO implements DAO<Club>{
     public void delete(Club club) {
     }
 
-    public ResultSet GetMembershipReport(String ClubName) throws SQLException {
-        final String getMembers = String.format("SELECT student FROM Members WHERE club = %s",ClubName);
-        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
-        return resultSet;
-    }
-
-    public static ResultSet GetEvents(String ClubName) throws SQLException {
-        final String getMembers = String.format("SELECT title FROM Events WHERE club = %s",ClubName);
-        ResultSet resultSet = dbManager.executeSQLQuery(getMembers);
-        return resultSet;
-    }
 }
