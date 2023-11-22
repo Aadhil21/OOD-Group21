@@ -1,5 +1,7 @@
 package com.sacms.controllers;
 
+import com.sacms.database.LoginManager;
+import com.sacms.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,39 +34,42 @@ public class StudentDashboardController implements Initializable {
     @FXML
     private TableView<?> table;
     @FXML
-    private Label uerName;
+    private Label userName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        myClubs.setSelected(true);
-        joinClubs.setSelected(false);
-        joinMeeting.setSelected(false);
+        User user = LoginManager.getInstance().getCurrentUser();
+        userName.setText("User Name: " + user.getFirstName() + " " + user.getLastName());
+        studentId.setText("Student ID: " + String.valueOf(user.getUid()));
+        ShowMyClubs();
     }
 
     @FXML
-    void ShowMyClubs(ActionEvent event) {
+    void ShowMyClubs() {
         myClubs.setSelected(true);
         joinClubs.setSelected(false);
         joinMeeting.setSelected(false);
+
+
     }
 
     @FXML
-    void ShowJoinClubs(ActionEvent event) {
+    void ShowJoinClubs() {
         myClubs.setSelected(false);
         joinClubs.setSelected(true);
         joinMeeting.setSelected(false);
     }
 
     @FXML
-    void ShowJoinMeeting(ActionEvent event) {
+    void ShowJoinMeeting() {
         myClubs.setSelected(false);
         joinClubs.setSelected(false);
         joinMeeting.setSelected(true);
     }
 
     @FXML
-    void logOut(ActionEvent event){
-       screenController.activate("Login");
+    void logOut() {
+        screenController.activate("Login");
     }
 
 }

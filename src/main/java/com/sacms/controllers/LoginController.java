@@ -9,10 +9,7 @@ import com.sacms.models.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,9 +39,16 @@ public class LoginController implements Initializable {
             StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
             AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
 
-            int userID = Integer.parseInt(uid.getText());
+            String userIdText = uid.getText();
             String userPassword = password.getText();
             String role = roles.getValue();
+
+            if (userIdText.isEmpty() || userPassword.isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Please fill in all fields", ButtonType.OK).showAndWait();
+                return;
+            }
+
+            int userID = Integer.parseInt(userIdText);
 
             switch (role) {
                 case "Student":

@@ -10,11 +10,11 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sacms.controllers.SignUpController">
    <children>
       <Button layoutX="340.0" layoutY="330.0" mnemonicParsing="false" onAction="#signUp" prefHeight="32.0" prefWidth="200.0" text="Sign Up" />
-      <TextField fx:id="uid" layoutX="58.0" layoutY="135.0" prefWidth="200.0" />
+      <TextField fx:id="userId" layoutX="58.0" layoutY="135.0" prefWidth="200.0" />
       <PasswordField fx:id="password" layoutX="343.0" layoutY="265.0" prefWidth="200.0" />
       <Text layoutX="58.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
       <Text layoutX="343.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
-      <ChoiceBox fx:id="roles" layoutX="58.0" layoutY="330.0" prefHeight="32.0" prefWidth="200.0" />
+      <ChoiceBox fx:id="rolesChoiceBox" layoutX="58.0" layoutY="330.0" prefHeight="32.0" prefWidth="200.0" />
       <Text layoutX="58.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role:" />
       <TextField fx:id="firstName" layoutX="58.0" layoutY="200.0" prefWidth="200.0" />
       <Text layoutX="58.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />

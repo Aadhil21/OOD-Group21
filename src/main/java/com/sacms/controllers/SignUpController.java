@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class SignUpController implements Initializable {
 
     @FXML
-    private TextField uid;
+    private TextField userId;
 
     @FXML
     private TextField firstName;
@@ -35,15 +35,15 @@ public class SignUpController implements Initializable {
     private TextField email;
 
     @FXML
-    private ChoiceBox<String> roles;
+    private ChoiceBox<String> rolesChoiceBox;
 
     private final ScreenController screenController = ScreenController.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roles.getItems().clear();
-        roles.getItems().addAll("Advisor", "Student");
-        roles.setValue("Student");
+        rolesChoiceBox.getItems().clear();
+        rolesChoiceBox.getItems().addAll("Advisor", "Student");
+        rolesChoiceBox.setValue("Student");
     }
 
     @FXML
@@ -57,22 +57,35 @@ public class SignUpController implements Initializable {
             StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
             AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
 
-            int userID = Integer.parseInt(uid.getText());
+            String userIdText = userId.getText();
             String userFirstName = firstName.getText();
             String userLastName = lastName.getText();
             String userPhoneNo = phoneNo.getText();
             String userEmail = email.getText();
             String userPassword = password.getText();
-            String role = roles.getValue();
+            String role = rolesChoiceBox.getValue();
+
+            if (userIdText.isEmpty()
+                    || userFirstName.isEmpty()
+                    || userLastName.isEmpty()
+                    || userPhoneNo.isEmpty()
+                    || userEmail.isEmpty()
+                    || userPassword.isEmpty())
+            {
+                new Alert(Alert.AlertType.WARNING, "Please fill in all fields", ButtonType.OK).showAndWait();
+                return;
+            }
+
+            int userId = Integer.parseInt(userIdText);
 
             if (role.equals("Student")) {
-                Student student = new Student(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
+                Student student = new Student(userId, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (studentDAO.create(student) != null) {
                     LoginManager.getInstance().login(student);
                     screenController.activate("Login");
                 }
             } else if (role.equals("Advisor")) {
-                Advisor advisor = new Advisor(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
+                Advisor advisor = new Advisor(userId, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (advisorDAO.create(advisor) != null) {
                     LoginManager.getInstance().login(advisor);
                     screenController.activate("Login");
@@ -84,5 +97,4 @@ public class SignUpController implements Initializable {
             new Alert(Alert.AlertType.WARNING, "Warning: Failed to create profile", ButtonType.OK).showAndWait();
         }
     }
-
 }
