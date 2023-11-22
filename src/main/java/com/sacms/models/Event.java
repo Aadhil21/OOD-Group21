@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class Event {
         attendees.add(student);
     }
 
-    public void EventAttendance(){
+    public void EventAttendance() throws SQLException {
         String excelFilePath = "Report/" + this.title + "EventAttendance" + DateTimeUtils.getDateTime() + ".xlsx";
         ResultSet resultSet = EventDAO.GetAttendanceReport(this.title);
         CreateReport.CreateExcel(resultSet,excelFilePath);
