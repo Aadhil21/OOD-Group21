@@ -1,12 +1,13 @@
 package com.sacms.database;
 
-import com.sacms.models.Student;
+import java.sql.ResultSet;
 
 public abstract class UserDAO<T> implements DAO<T> {
     private static final DBManager dbManager = DBManager.getInstance();
 
     @Override
-    public void create(T t) {
+    public ResultSet create(T t) {
+        return null;
     }
 
     @Override

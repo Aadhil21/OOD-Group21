@@ -19,19 +19,24 @@ public class StudentDAO extends UserDAO<Student> {
     }
 
     @Override
-    public void create(Student student) {
-        final int username = student.getUid();
-        final String firstName = student.getFirstName();
-        final String lastName = student.getLastName();
-        final String phone = student.getPhone();
-        final String email = student.getEmail();
-        final String password = student.getPassword();
+    public ResultSet create(Student student){
+        try {
+            final int username = student.getUid();
+            final String firstName = student.getFirstName();
+            final String lastName = student.getLastName();
+            final String phone = student.getPhone();
+            final String email = student.getEmail();
+            final String password = student.getPassword();
 
-        final String sqlStatement = String.format("INSERT INTO Student(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
+            final String sqlStatement = String.format("INSERT INTO Student(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
 
-        dbManager.executeSQLStatement(sqlStatement);
-        System.out.println("inserted student");
-
+            ResultSet resultset = dbManager.executeSQLQuery(sqlStatement);
+            System.out.println("inserted student");
+            return resultset;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

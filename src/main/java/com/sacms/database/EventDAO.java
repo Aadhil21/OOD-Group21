@@ -22,7 +22,7 @@ public class EventDAO implements DAO<Event> {
         dbManager.executeSQLStatement(createEvents);
     }
 
-    public void create(Event event) {
+    public ResultSet create(Event event) {
         final int id = event.getId();
         final String club = event.getClub().getName();
         final String title = event.getTitle();
@@ -46,6 +46,7 @@ public class EventDAO implements DAO<Event> {
         );
 
         dbManager.executeSQLStatement(sqlStatement);
+        return null;
     }
 
     @Override

@@ -21,26 +21,5 @@ public class Advisor extends User {
         return clubs;
     }
 
-    public static Advisor getAdvisor(int uid, String pass) {
-        try {
-            Advisor advisor = DAOFactory.getInstance().getDAO(Advisor.class).read(uid);
-            if (advisor != null && advisor.getPassword().equals(pass)) {
-                return advisor;
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return null;
-    }
-
-    public static Advisor setAdvisor(Advisor advisor) {
-        try {
-            DAOFactory.getInstance().getDAO(Advisor.class).create(advisor);
-            return advisor;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-
+    
 }

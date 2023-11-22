@@ -1,6 +1,9 @@
 package com.sacms.controllers;
 
+import com.sacms.database.AdvisorDAO;
+import com.sacms.database.DAOFactory;
 import com.sacms.database.LoginManager;
+import com.sacms.database.StudentDAO;
 import com.sacms.models.Advisor;
 import com.sacms.models.Student;
 import javafx.event.ActionEvent;
@@ -36,22 +39,25 @@ public class LoginController implements Initializable {
     @FXML
     void signIn(ActionEvent event) {
         try {
+            StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
+            AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
+
             int userID = Integer.parseInt(uid.getText());
             String userPassword = password.getText();
             String role = roles.getValue();
 
             switch (role) {
                 case "Student":
-                    Student student = Student.getStudent(userID, userPassword);
-                    if (student != null) {
+                    Student student = studentDAO.read(userID);
+                    if (student != null && student.getPassword().equals(userPassword)) {
                         LoginManager.getInstance().login(student);
                         screenController.activate("StudentDashboard");
                     }
                     break;
 
                 case "Advisor":
-                    Advisor advisor = Advisor.getAdvisor(userID, userPassword);
-                    if (advisor != null) {
+                    Advisor advisor = advisorDAO.read(userID);
+                    if (advisor != null && advisor.getPassword().equals(userPassword)) {
                         LoginManager.getInstance().login(advisor);
                         screenController.activate("AdvisorDashboard", true);
                     }

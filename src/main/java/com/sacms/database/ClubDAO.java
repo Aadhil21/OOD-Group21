@@ -1,6 +1,5 @@
 package com.sacms.database;
 
-import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 
 import java.sql.ResultSet;
@@ -20,7 +19,7 @@ public class ClubDAO implements DAO<Club>{
     }
 
     @Override
-    public void create(Club club) {
+    public ResultSet create(Club club) {
         final String name = club.getName();
         final int advisorId = club.getAdvisor().getUid();
 
@@ -30,6 +29,7 @@ public class ClubDAO implements DAO<Club>{
         );
 
         dbManager.executeSQLStatement(sqlStatement);
+        return null;
     }
 
     @Override

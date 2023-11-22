@@ -2,6 +2,8 @@ package com.sacms.database;
 
 import com.sacms.models.ClubMembership;
 
+import java.sql.ResultSet;
+
 /**
  * This class is responsible for handling the database operations for the ClubMembership model.
  */
@@ -17,7 +19,7 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
     }
 
     @Override
-    public void create(ClubMembership membership) {
+    public ResultSet create(ClubMembership membership) {
         final String club = membership.club().getName();
         final int student = membership.student().getUid();
 
@@ -27,6 +29,7 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
         );
 
         dbManager.executeSQLStatement(sqlStatement);
+        return null;
     }
 
     @Override

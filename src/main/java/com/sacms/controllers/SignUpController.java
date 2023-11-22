@@ -1,6 +1,9 @@
 package com.sacms.controllers;
 
+import com.sacms.database.AdvisorDAO;
+import com.sacms.database.DAOFactory;
 import com.sacms.database.LoginManager;
+import com.sacms.database.StudentDAO;
 import com.sacms.models.Advisor;
 import com.sacms.models.Student;
 import javafx.event.ActionEvent;
@@ -51,6 +54,9 @@ public class SignUpController implements Initializable {
     @FXML
     void signUp(ActionEvent event) {
         try {
+            StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
+            AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
+
             int userID = Integer.parseInt(uid.getText());
             String userFirstName = firstName.getText();
             String userLastName = lastName.getText();
@@ -61,13 +67,13 @@ public class SignUpController implements Initializable {
 
             if (role.equals("Student")) {
                 Student student = new Student(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
-                if (Student.setStudent(student) != null) {
+                if (studentDAO.create(student) != null) {
                     LoginManager.getInstance().login(student);
                     screenController.activate("Login");
                 }
             } else if (role.equals("Advisor")) {
                 Advisor advisor = new Advisor(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
-                if (Advisor.setAdvisor(advisor) != null) {
+                if (advisorDAO.create(advisor) != null) {
                     LoginManager.getInstance().login(advisor);
                     screenController.activate("Login");
                 }
