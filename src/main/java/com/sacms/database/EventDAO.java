@@ -22,7 +22,7 @@ public class EventDAO implements DAO<Event> {
         dbManager.executeSQLStatement(createEvents);
     }
 
-    public ResultSet create(Event event) {
+    public Event create(Event event) {
         final int id = event.getId();
         final String club = event.getClub().getName();
         final String title = event.getTitle();

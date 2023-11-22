@@ -2,8 +2,6 @@ package com.sacms.database;
 
 import com.sacms.models.EventAttendee;
 
-import java.sql.ResultSet;
-
 /**
  * This class is responsible for handling database operations for the EventAttendance table.
  */
@@ -19,7 +17,7 @@ public class AttendanceDAO implements DAO<EventAttendee> {
     }
 
     @Override
-    public ResultSet create(EventAttendee attendee) {
+    public EventAttendee create(EventAttendee attendee) {
         final int event = attendee.event().getId();
         final int student = attendee.student().getUid();
 

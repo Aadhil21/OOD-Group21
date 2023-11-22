@@ -19,7 +19,7 @@ public class ClubDAO implements DAO<Club>{
     }
 
     @Override
-    public ResultSet create(Club club) {
+    public Club create(Club club) {
         final String name = club.getName();
         final int advisorId = club.getAdvisor().getUid();
 
