@@ -13,8 +13,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 
 <VBox prefHeight="318.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sacms.controllers.AdvisorDashboard">
    <children>
@@ -38,108 +40,143 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+      <StackPane VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="lbl_clubName" maxWidth="1.7976931348623157E308" text="Club name" wrapText="true">
-               <font>
-                  <Font name="Cantarell Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-            <Button fx:id="btn_generateClubReport" mnemonicParsing="false" text="Generate Club Report">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="btn_createEvent" mnemonicParsing="false" text="Create New Event">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-            </Button>
-         </children>
-      </HBox>
-      <SplitPane dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-        <items>
-            <VBox>
+            <VBox fx:id="vbox_clubAdvisorView">
                <children>
-                  <Accordion>
-                    <panes>
-                      <TitledPane animated="false" text="Previous Events">
-                           <content>
-                              <ListView fx:id="lst_prevEvents" prefHeight="200.0" prefWidth="200.0" />
-                           </content></TitledPane>
-                      <TitledPane animated="false" text="Upcoming Events">
-                           <content>
-                              <ListView fx:id="lst_upcomingEvents" prefHeight="200.0" prefWidth="200.0" />
-                           </content></TitledPane>
-                    </panes>
-                  </Accordion>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="lbl_clubName" maxWidth="1.7976931348623157E308" text="Club name" wrapText="true">
+                           <font>
+                              <Font name="Cantarell Bold" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btn_generateClubReport" mnemonicParsing="false" onAction="#onBtnGenerateClubReport" text="Generate Club Report">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="btn_createEvent" mnemonicParsing="false" onAction="#onBtnCreateEvent" text="Create New Event">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <SplitPane dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <items>
+                        <VBox>
+                           <children>
+                              <Accordion>
+                                <panes>
+                                  <TitledPane animated="false" text="Previous Events">
+                                       <content>
+                                          <ListView fx:id="lst_prevEvents" prefHeight="200.0" prefWidth="200.0" />
+                                       </content>
+                                    </TitledPane>
+                                  <TitledPane animated="false" text="Upcoming Events">
+                                       <content>
+                                          <ListView fx:id="lst_upcomingEvents" prefHeight="200.0" prefWidth="200.0" />
+                                       </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label fx:id="lbl_eventTitle" text="Event Title">
+                                 <font>
+                                    <Font name="Cantarell Regular" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="lbl_startDate" text="Start date: 2000-01-01" />
+                              <Label fx:id="lbl_startTime" layoutX="20.0" layoutY="61.0" text="Start time: 2.45.P.M">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="lbl_endDate" layoutX="20.0" layoutY="61.0" text="End date : 2000-01-01 (Same day)" />
+                              <Label fx:id="lbl_endTime" layoutX="20.0" layoutY="102.0" text="End time : 5.45.P.M" />
+                              <VBox style="-fx-border-style: dashed; -fx-border-color: #9e9e9e;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
+                                       <children>
+                                          <Label maxWidth="1.7976931348623157E308" text="Member attendance" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="btn_addAttendance" mnemonicParsing="false" onAction="#onBtnAddAttendance" text="Add attended student" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView fx:id="tbl_attendance" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                      <columns>
+                                        <TableColumn fx:id="tcol_studentId" prefWidth="113.0" text="Student ID" />
+                                        <TableColumn fx:id="tcol_firstName" prefWidth="111.0" text="First name" />
+                                          <TableColumn fx:id="tcol_lastName" prefWidth="111.0" text="Last name" />
+                                          <TableColumn fx:id="tcol_phoneNumber" prefWidth="111.0" text="Phone number" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                    </items>
+                  </SplitPane>
                </children>
             </VBox>
-            <VBox>
+            <VBox fx:id="vbox_noClubView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: inherit;" StackPane.alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="lbl_eventTitle" text="Event Title">
+                  <Label fx:id="lbl_noClubView_username" maxHeight="-Infinity" text="Hello user!">
                      <font>
-                        <Font name="Cantarell Regular" size="20.0" />
+                        <Font size="16.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="25.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="lbl_startDate" text="Start date: 2000-01-01" />
-                  <Label fx:id="lbl_startTime" layoutX="20.0" layoutY="61.0" text="Start time: 2.45.P.M">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
+                  <Label text="Seems like you don't have any clubs yet. ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
                   </Label>
-                  <Label fx:id="lbl_endDate" layoutX="20.0" layoutY="61.0" text="End date : 2000-01-01 (Same day)" />
-                  <Label fx:id="lbl_endTime" layoutX="20.0" layoutY="102.0" text="End time : 5.45.P.M" />
-                  <VBox style="-fx-border-style: dashed; -fx-border-color: #9e9e9e;" VBox.vgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
-                           <children>
-                              <Label maxWidth="1.7976931348623157E308" text="Member attendance" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="btn_addAttendance" mnemonicParsing="false" text="Add attended student" />
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <TableView fx:id="tbl_attendance" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                            <TableColumn fx:id="tcol_studentId" prefWidth="113.0" text="Student ID" />
-                            <TableColumn fx:id="tcol_firstName" prefWidth="111.0" text="First name" />
-                              <TableColumn fx:id="tcol_lastName" prefWidth="111.0" text="Last name" />
-                              <TableColumn fx:id="tcol_phoneNumber" prefWidth="111.0" text="Phone number" />
-                          </columns>
-                        </TableView>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
+                  <Button fx:id="btn_noClubView_createClub" mnemonicParsing="false" onAction="#onNoClubViewCreateClub" text="Make a club now!">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
-                  </VBox>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
             </VBox>
-        </items>
-      </SplitPane>
+         </children>
+      </StackPane>
    </children>
 </VBox>

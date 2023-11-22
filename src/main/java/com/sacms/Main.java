@@ -21,12 +21,14 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        ScreenController screenController = new ScreenController(scene);
-        screenController.addScreen("Login", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginView.fxml"))));
-        screenController.addScreen("SignUp", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpView.fxml"))));
-        screenController.addScreen("AdvisorDashboard", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/AdvisorDashboard.fxml"))));
-        screenController.addScreen("StudentDashboard", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StudentDashboard.fxml"))));
-        screenController.addScreen("JoinClub", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("JoinClubView.fxml"))));
+        ScreenController screenController = ScreenController.getInstance();
+        screenController.setStage(stage);
+
+        screenController.addScreen("Login", getClass().getResource("LoginView.fxml"));
+        screenController.addScreen("SignUp", getClass().getResource("SignUpView.fxml"));
+        screenController.addScreen("AdvisorDashboard", getClass().getResource("view/AdvisorDashboard.fxml"));
+        screenController.addScreen("StudentDashboard", getClass().getResource("StudentDashboard.fxml"));
+        screenController.addScreen("JoinClub", getClass().getResource("JoinClubView.fxml"));
     }
 
     public static void main(String[] args) {

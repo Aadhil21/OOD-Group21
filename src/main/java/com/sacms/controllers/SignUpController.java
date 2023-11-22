@@ -34,6 +34,8 @@ public class SignUpController implements Initializable {
     @FXML
     private ChoiceBox<String> roles;
 
+    private final ScreenController screenController = ScreenController.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         roles.getItems().clear();
@@ -43,7 +45,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     void signIn(ActionEvent event) {
-        ScreenController.activate("Login");
+        screenController.activate("Login");
     }
 
     @FXML
@@ -61,13 +63,13 @@ public class SignUpController implements Initializable {
                 Student student = new Student(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (Student.setStudent(student) != null) {
                     LoginManager.getInstance().login(student);
-                    ScreenController.activate("Login");
+                    screenController.activate("Login");
                 }
             } else if (role.equals("Advisor")) {
                 Advisor advisor = new Advisor(userID, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (Advisor.setAdvisor(advisor) != null) {
                     LoginManager.getInstance().login(advisor);
-                    ScreenController.activate("Login");
+                    screenController.activate("Login");
                 }
             }
         } catch (NumberFormatException e) {

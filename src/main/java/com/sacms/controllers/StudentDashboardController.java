@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class StudentDashboardController {
-
+    private final ScreenController screenController = ScreenController.getInstance();
 
     @FXML
     void clubReport(ActionEvent event) {
@@ -13,7 +13,7 @@ public class StudentDashboardController {
 
     @FXML
     void joinClub(ActionEvent event) {
-        ScreenController.activate("JoinClub");
+        screenController.activate("JoinClub");
 
     }
 
