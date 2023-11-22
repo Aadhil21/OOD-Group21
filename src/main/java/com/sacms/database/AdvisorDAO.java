@@ -27,23 +27,18 @@ public class AdvisorDAO extends UserDAO<Advisor> {
      */
     @Override
     public Advisor create(Advisor advisor) {
-        try {
-            final int username = advisor.getUid();
-            final String firstName = advisor.getFirstName();
-            final String lastName = advisor.getLastName();
-            final String phone = advisor.getPhone();
-            final String email = advisor.getEmail();
-            final String password = advisor.getPassword();
+        final int username = advisor.getUid();
+        final String firstName = advisor.getFirstName();
+        final String lastName = advisor.getLastName();
+        final String phone = advisor.getPhone();
+        final String email = advisor.getEmail();
+        final String password = advisor.getPassword();
 
-            final String sqlStatement = String.format("INSERT INTO advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
+        final String sqlStatement = String.format("INSERT INTO advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
 
-            dbManager.executeSQLQuery(sqlStatement);
-            System.out.println("inserted advisor");
-            return advisor;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        dbManager.executeSQLStatement(sqlStatement);
+        System.out.println("inserted advisor");
+        return advisor;
     }
 
     @Override
