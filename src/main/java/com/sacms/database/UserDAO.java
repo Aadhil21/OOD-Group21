@@ -6,7 +6,7 @@ public abstract class UserDAO<T> implements DAO<T> {
     private static final DBManager dbManager = DBManager.getInstance();
 
     @Override
-    public ResultSet create(T t) {
+    public T create(T t) {
         return null;
     }
 

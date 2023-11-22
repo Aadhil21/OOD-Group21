@@ -26,7 +26,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
      * @return
      */
     @Override
-    public ResultSet create(Advisor advisor) {
+    public Advisor create(Advisor advisor) {
         try {
             final int username = advisor.getUid();
             final String firstName = advisor.getFirstName();
@@ -37,11 +37,10 @@ public class AdvisorDAO extends UserDAO<Advisor> {
 
             final String sqlStatement = String.format("INSERT INTO advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
 
-
-            ResultSet resultset = dbManager.executeSQLQuery(sqlStatement);
+            dbManager.executeSQLQuery(sqlStatement);
             System.out.println("inserted advisor");
-            return resultset;
-        }catch(SQLException e){
+            return advisor;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -98,7 +97,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         final List<Club> clubs = new ArrayList<>();
 
         final String sqlStatement = String.format(
-            "SELECT * FROM Clubs WHERE advisor = %d;", advisor.getUid()
+                "SELECT * FROM Clubs WHERE advisor = %d;", advisor.getUid()
         );
 
         try (ResultSet results = dbManager.executeSQLQuery(sqlStatement)) {
