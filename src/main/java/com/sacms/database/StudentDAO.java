@@ -35,7 +35,7 @@ public class StudentDAO extends UserDAO<Student> {
     }
 
     @Override
-    public Student read(int uid) {
+    public static Student read(int uid) {
         final String sqlStatement = String.format("SELECT * FROM Student WHERE uid = %d;", uid);
         System.out.println("Before executing query");
 
