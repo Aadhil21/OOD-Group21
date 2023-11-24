@@ -2,6 +2,8 @@ package com.sacms.controllers;
 
 import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
+import com.sacms.models.Club;
+import com.sacms.models.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -56,6 +58,8 @@ public class AdvisorDashboard {
     @FXML private TableColumn<?, ?> tcol_studentId;
 
     private final LoginManager loginManager;
+    private Event selectedEvent;
+    private Club currentClub;
 
     public AdvisorDashboard() {
         loginManager = LoginManager.getInstance();
@@ -70,6 +74,51 @@ public class AdvisorDashboard {
         } else {
             vbox_noClubView.setVisible(false);
             vbox_clubAdvisorView.setVisible(true);
+            currentClub = advisor.getClubs().get(0);
+        }
+
+        refreshAdvisorView();
+        setSelectedEvent(null);
+    }
+
+    private void setCurrentClub(Club club) {
+        currentClub = club;
+        refreshAdvisorView();
+    }
+
+    private void refreshAdvisorView() {
+        if (currentClub == null) {
+            vbox_noClubView.setVisible(true);
+            vbox_clubAdvisorView.setVisible(false);
+        } else {
+            vbox_noClubView.setVisible(false);
+            vbox_clubAdvisorView.setVisible(true);
+            lbl_clubName.setText(currentClub.getName());
+        }
+    }
+
+    private void setSelectedEvent(Event event) {
+        selectedEvent = event;
+        refreshEventPane();
+    }
+
+    private Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    private void refreshEventPane() {
+        Event event = getSelectedEvent();
+        if (event == null) {
+            vbox_events_noEventMsgView.setVisible(true);
+            vbox_events_eventView.setVisible(false);
+        } else {
+            vbox_events_noEventMsgView.setVisible(false);
+            vbox_events_eventView.setVisible(true);
+            lbl_eventTitle.setText(event.getTitle());
+            lbl_startDate.setText(event.getStartDate().toString());
+            lbl_startTime.setText(event.getStartTime().toString());
+            lbl_endDate.setText(event.getEndDate().toString());
+            lbl_endTime.setText(event.getEndTime().toString());
         }
     }
 
