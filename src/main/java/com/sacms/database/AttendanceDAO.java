@@ -37,7 +37,6 @@ public class AttendanceDAO implements DAO<EventAttendee> {
         return null;
     }
 
-    @Override
     public EventAttendee read(int i) {
         return null;
     }

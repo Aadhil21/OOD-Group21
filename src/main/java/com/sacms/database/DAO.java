@@ -7,7 +7,6 @@ public interface DAO<T> {
 
     void createTable();
     T create(T t);
-    T read(int i);
     void update(T t);
     void delete(T t);
 }

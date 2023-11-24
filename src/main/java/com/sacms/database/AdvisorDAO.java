@@ -41,7 +41,6 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         return advisor;
     }
 
-    @Override
     public Advisor read(int uid) {
         final String sqlStatement = String.format("SELECT * FROM Advisor WHERE uid = %d;", uid);
         System.out.println("Before executing query");

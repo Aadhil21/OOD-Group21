@@ -30,7 +30,6 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
         return null;
     }
 
-    @Override
     public ClubMembership read(int i) {
         return null;
     }

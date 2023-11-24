@@ -49,7 +49,6 @@ public class EventDAO implements DAO<Event> {
         return null;
     }
 
-    @Override
     public Event read(int i) {
         return null;
     }
