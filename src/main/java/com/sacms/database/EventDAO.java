@@ -22,8 +22,15 @@ public class EventDAO implements DAO<Event> {
         dbManager.executeSQLStatement(createEvents);
     }
 
+    /**
+     * Inserts a new {@link Event} into the database. The {@link Event} object passed in is not modified.
+     * The key of the {@link Event} object passed will be ignored. Therefore, when creating a new event, set the
+     * key to an arbitrary value.
+     *
+     * @param event The {@link Event} to be inserted.
+     * @return The {@link Event} object with the generated key.
+     */
     public Event create(Event event) {
-        final int id = event.getId();
         final String club = event.getClub().getName();
         final String title = event.getTitle();
         final LocalDate startDate = event.getStartDate();
@@ -40,13 +47,13 @@ public class EventDAO implements DAO<Event> {
         final long end = eventEnd.toEpochSecond(ZoneOffset.UTC);
 
         final String sqlStatement = String.format(
-            "INSERT INTO Events(e_id, club, title, start, end) " +
-            "VALUES (%d, '%s', '%s', '%d', '%d');",
-            id, club, title, start, end
+            "INSERT INTO Events(club, title, start, end) " +
+            "VALUES ('%s', '%s', '%d', '%d');",
+            club, title, start, end
         );
 
-        dbManager.executeSQLStatement(sqlStatement);
-        return null;
+        int key = dbManager.executeSQLStatement(sqlStatement);
+        return new Event(key, event);
     }
 
     public Event read(int i) {
