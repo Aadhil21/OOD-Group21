@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sacms.controllers.NewEvent">
+   <children>
+      <Label text="Add new event">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label text="Club Name">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <GridPane vgap="5.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Event name" />
+            <Label text="Event description" GridPane.rowIndex="1" />
+            <Label text="Start date" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label text="Start time" GridPane.rowIndex="4" />
+            <CheckBox fx:id="chk_oneDayEvent" mnemonicParsing="false" onAction="#onChkOneDayToggle" text="This is a one day event" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="15.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <Label text="End date" GridPane.rowIndex="6" />
+            <Label text="End time" GridPane.rowIndex="7" />
+            <Label text=":" GridPane.columnIndex="1" />
+            <Label layoutX="192.0" layoutY="37.0" text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="192.0" layoutY="85.0" text=":" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label layoutX="10.0" layoutY="13.0" text=":" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txt_eventName" promptText="Enter event name" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="txt_eventDescription" promptText="Enter event description" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <DatePicker fx:id="date_startDate" promptText="yyyy-mm-dd" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <DatePicker fx:id="date_endDate" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="txt_startTime" promptText="hh:mm" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="txt_endTime" promptText="hh:mm" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <HBox alignment="BOTTOM_RIGHT" spacing="10.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="btn_addEvent" mnemonicParsing="false" onAction="#onBtnAddEventClick" text="Add event" />
+            <Button fx:id="btn_cancelEvent" mnemonicParsing="false" onAction="#onBtnCancelClick" text="Cancel" />
+         </children>
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+   </padding>
+</VBox>

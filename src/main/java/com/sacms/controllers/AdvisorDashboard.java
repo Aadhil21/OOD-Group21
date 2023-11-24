@@ -1,5 +1,6 @@
 package com.sacms.controllers;
 
+import com.sacms.NewEventDialog;
 import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
@@ -13,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 
 public class AdvisorDashboard {
     @FXML private VBox vbox_noClubView;
@@ -129,7 +131,9 @@ public class AdvisorDashboard {
 
     @FXML
     void onBtnCreateEvent(ActionEvent event) {
-
+        Window window = btn_createEvent.getScene().getWindow();
+        NewEventDialog newEventDialog = new NewEventDialog(window);
+        newEventDialog.showAndWait();
     }
 
     @FXML
