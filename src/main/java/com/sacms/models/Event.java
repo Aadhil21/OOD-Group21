@@ -41,6 +41,16 @@ public class Event {
         this.attendees = new ArrayList<>();
     }
 
+    public Event(Club club, String title, LocalDate startDate, LocalDate endDate,
+                 LocalTime startTime, LocalTime endTime) {
+        this(-1, club, title, startDate, endDate, startTime, endTime);
+    }
+
+    public Event(int key, Event event) {
+        this(key, event.getClub(), event.getTitle(), event.getStartDate(), event.getEndDate(),
+                event.getStartTime(), event.getEndTime());
+    }
+
     public int getId() {
         return id;
     }
