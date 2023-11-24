@@ -59,7 +59,7 @@ public class AttendanceDAO implements DAO<EventAttendee> {
                 eventId
         );
 
-        try (ResultSet resultSet = dbManager.executeQuery(sqlStatement)) {
+        try (ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement)) {
             List<Student> attendedStudents = new ArrayList<>();
 
             while (resultSet.next()) {
