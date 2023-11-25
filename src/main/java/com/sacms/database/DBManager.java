@@ -58,16 +58,20 @@ public class DBManager {
         int key = -1;
         try {
             Statement stmt = con.createStatement();
-            stmt.execute(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                key = rs.getInt(1);
-            }
+            stmt.execute(sqlStatement);
+            key = getGeneratedKey();
         } catch (SQLException e) {
             System.out.println("Error executing SQL statement: " + e);
         }
 
         return key;
+    }
+
+    private int getGeneratedKey() throws SQLException {
+        Connection con = getConnection();
+        if (con == null) return -1;
+        Statement stmt =  con.createStatement();
+        return stmt.executeQuery("SELECT last_insert_rowid();").getInt(1);
     }
 }
 
