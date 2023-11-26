@@ -1,5 +1,6 @@
 package com.sacms.database;
 
+import com.sacms.models.Club;
 import com.sacms.models.Event;
 
 import java.sql.ResultSet;
@@ -8,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is responsible for handling all database operations related to the Events table.
@@ -60,7 +63,42 @@ public class EventDAO implements DAO<Event> {
         return null;
     }
 
+    public List<Event> getEventsByClub(Club club) {
+        final String clubName = club.getName();
+        final List<Event> events = new ArrayList<>();
 
+        final String sqlStatement = String.format(
+            "SELECT * FROM Events WHERE club = '%s';",
+            clubName
+        );
+
+        try (ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement)) {
+            while (resultSet.next()) {
+                // Read data from the ResultSet and create an Event object
+                int key = resultSet.getInt("e_id");
+                String title = resultSet.getString("title");
+                long start = resultSet.getLong("start");
+                long end = resultSet.getLong("end");
+
+                // Converting epoch seconds to LocalDateTime
+                LocalDateTime startDate = LocalDateTime.ofEpochSecond(start, 0, ZoneOffset.UTC);
+                LocalDateTime endDate = LocalDateTime.ofEpochSecond(end, 0, ZoneOffset.UTC);
+
+                // Extracting date and time from LocalDateTime
+                LocalDate eventStartDate = startDate.toLocalDate();
+                LocalTime eventStartTime = startDate.toLocalTime();
+                LocalDate eventEndDate = endDate.toLocalDate();
+                LocalTime eventEndTime = endDate.toLocalTime();
+
+                Event event = new Event(key, club, title, eventStartDate, eventEndDate, eventStartTime, eventEndTime);
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return events;
+    }
 
     @Override
     public void update(Event event) {

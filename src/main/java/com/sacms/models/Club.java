@@ -15,17 +15,20 @@ import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Club {
     static ClubDAO clubDAO = new ClubDAO();
+    static EventDAO eventDAO = new EventDAO();
 
     private String name;
     private Advisor advisor;
-
+    private List<Event> events;
 
     public Club(String name, Advisor advisor) {
         this.name = name;
         this.advisor = advisor;
+        this.events = eventDAO.getEventsByClub(this);
     }
 
     public String getName() {
@@ -44,4 +47,16 @@ public class Club {
         this.advisor = advisor;
     }
 
+    public void setAllEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public List<Event> getAllEvents() {
+        return events;
+    }
+
+    public void addEvent(Event event) {
+        eventDAO.create(event);
+        events.add(event);
+    }
 }
