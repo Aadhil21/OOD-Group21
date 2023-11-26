@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,5 +117,14 @@ public class Event {
         AttendanceDAO attendanceDAO = new AttendanceDAO();
         attendanceDAO.create(eventAttendee);
         attendees.add(student);
+    }
+
+    public boolean isCollidingWith(Event event) {
+        LocalDateTime thisStart = this.getStartDate().atTime(this.getStartTime());
+        LocalDateTime thisEnd = this.getEndDate().atTime(this.getEndTime());
+        LocalDateTime otherStart = event.getStartDate().atTime(event.getStartTime());
+        LocalDateTime otherEnd = event.getEndDate().atTime(event.getEndTime());
+
+        return DateTimeUtils.isDateTimeOverlapping(thisStart, thisEnd, otherStart, otherEnd);
     }
 }
