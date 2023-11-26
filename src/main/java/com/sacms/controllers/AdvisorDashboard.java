@@ -154,6 +154,7 @@ public class AdvisorDashboard {
         Window window = btn_createEvent.getScene().getWindow();
         NewEventDialog newEventDialog = new NewEventDialog(window, currentClub, currentClub.getAllEvents());
         Event newEvent = newEventDialog.showAndWait();
+        if (newEvent != null) observableEvents.add(newEvent);
     }
 
     @FXML
