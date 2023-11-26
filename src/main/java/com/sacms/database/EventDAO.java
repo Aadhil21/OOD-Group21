@@ -72,7 +72,9 @@ public class EventDAO implements DAO<Event> {
             clubName
         );
 
-        try (ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement)) {
+        try (DBManager.ResultContainer resultContainer = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = resultContainer.resultSet;
+
             while (resultSet.next()) {
                 // Read data from the ResultSet and create an Event object
                 int key = resultSet.getInt("e_id");

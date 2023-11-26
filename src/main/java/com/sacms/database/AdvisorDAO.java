@@ -45,8 +45,9 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         final String sqlStatement = String.format("SELECT * FROM Advisor WHERE uid = %d;", uid);
         System.out.println("Before executing query");
 
-        try {
-            ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement);
+        try (DBManager.ResultContainer resultContainer = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = resultContainer.resultSet;
+
             System.out.println("Query executed");
 
             if (resultSet.next()) {
@@ -94,9 +95,11 @@ public class AdvisorDAO extends UserDAO<Advisor> {
                 "SELECT * FROM Clubs WHERE advisor = %d;", advisor.getUid()
         );
 
-        try (ResultSet results = dbManager.executeSQLQuery(sqlStatement)) {
-            while (results.next()) {
-                String clubName = results.getString("name");
+        try (DBManager.ResultContainer resultContainer = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = resultContainer.resultSet;
+
+            while (resultSet.next()) {
+                String clubName = resultSet.getString("name");
                 Club club = new Club(clubName, advisor);
                 clubs.add(club);
             }

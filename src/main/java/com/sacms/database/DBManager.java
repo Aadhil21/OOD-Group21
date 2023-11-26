@@ -36,13 +36,15 @@ public class DBManager {
     /**
      * Executes an SQL query and returns the result set.
      * @param sqlStatement The SQL statement to execute.
-     * @return The result set of the query.
+     * @return The {@link ResultContainer} containing the {#{@link ResultSet} of the executed query.
+     * @throws SQLException If an error occurred while executing the query.
+     * @see ResultContainer
      */
-    ResultSet executeSQLQuery(String sqlStatement) throws SQLException {
+    ResultContainer executeSQLQuery(String sqlStatement) throws SQLException {
         Connection con = getConnection();
         if (con == null) return null;
         Statement stmt =  con.createStatement();
-        return stmt.executeQuery(sqlStatement);
+        return new ResultContainer(stmt.executeQuery(sqlStatement));
     }
 
     /**
@@ -72,6 +74,33 @@ public class DBManager {
         if (con == null) return -1;
         Statement stmt =  con.createStatement();
         return stmt.executeQuery("SELECT last_insert_rowid();").getInt(1);
+    }
+
+    /**
+     * A wrapper class to expose the {@link ResultSet} and close the resources when done.
+     * This class has methods to close the {@link ResultSet} and the resources used by it,
+     * {@link Statement} and {@link Connection}. This class implements {@link AutoCloseable}
+     * allowing to use it in a try-with-resources block.
+     */
+    static class ResultContainer implements AutoCloseable {
+        final ResultSet resultSet;
+        ResultContainer(ResultSet rs) {
+            this.resultSet = rs;
+        }
+
+        @Override
+        public void close() {
+            try {
+                Statement stmt = resultSet.getStatement();
+                Connection con = stmt.getConnection();
+
+                resultSet.close();
+                stmt.close();
+                if (con != null && !con.isClosed()) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e);
+            }
+        }
     }
 }
 

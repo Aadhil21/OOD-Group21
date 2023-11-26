@@ -58,7 +58,9 @@ public class AttendanceDAO implements DAO<EventAttendee> {
                 eventId
         );
 
-        try (ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement)) {
+        try (DBManager.ResultContainer resultContainer = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = resultContainer.resultSet;
+
             List<Student> attendedStudents = new ArrayList<>();
 
             while (resultSet.next()) {

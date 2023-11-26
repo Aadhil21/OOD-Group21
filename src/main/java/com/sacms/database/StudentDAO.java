@@ -38,8 +38,9 @@ public class StudentDAO extends UserDAO<Student> {
         final String sqlStatement = String.format("SELECT * FROM Student WHERE uid = %d;", uid);
         System.out.println("Before executing query");
 
-        try {
-            ResultSet resultSet = dbManager.executeSQLQuery(sqlStatement);
+        try (DBManager.ResultContainer resultContainer = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = resultContainer.resultSet;
+
             System.out.println("Query executed");
 
             if (resultSet.next()) {
