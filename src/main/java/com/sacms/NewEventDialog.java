@@ -19,7 +19,7 @@ public class NewEventDialog {
     public NewEventDialog(Window parent, Club club, List<Event> events) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/NewEvent.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(),400,400);
+            Scene scene = new Scene(fxmlLoader.load(),400,420);
 
             stage = new Stage();
             stage.initOwner(parent);

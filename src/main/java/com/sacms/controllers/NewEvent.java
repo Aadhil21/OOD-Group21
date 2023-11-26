@@ -6,19 +6,17 @@ import com.sacms.models.Club;
 import com.sacms.models.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class NewEvent {
-    @FXML private Button btn_addEvent;
     @FXML private Button btn_cancelEvent;
     @FXML private CheckBox chk_oneDayEvent;
     @FXML private DatePicker date_endDate;
@@ -44,8 +42,42 @@ public class NewEvent {
         this.club = club;
     }
 
+    public void initialize() {
+        date_startDate.setValue(LocalDate.now());
+        date_endDate.setValue(LocalDate.now());
+
+        date_startDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (chk_oneDayEvent.isSelected()) {
+                date_endDate.setValue(newValue);
+            }
+        });
+
+        UnaryOperator<TextFormatter.Change> timeFilter = change -> {
+            String newText = change.getControlNewText();
+            String regex = switch (newText.length()) {
+                case 1 -> "[0-2]?";
+                case 2 -> "[0-2]?[0-9]?";
+                case 3 -> "[0-2]?[0-9]?:?";
+                case 4 -> "[0-2]?[0-9]?:?[0-5]?";
+                default -> "[0-2]?[0-9]?:?[0-5]?[0-9]?";
+            };
+
+            if (newText.matches(regex)) {
+                return change;
+            }
+
+            return null;
+        };
+
+        txt_startTime.setTextFormatter(new TextFormatter<>(timeFilter));
+        txt_endTime.setTextFormatter(new TextFormatter<>(timeFilter));
+    }
+
+
     @FXML
-    void onBtnAddEventClick(ActionEvent event) {
+    void onBtnAddEventClick(ActionEvent ignoredEvent) {
+        if (!validateInput()) return;
+
         String name = txt_eventName.getText();
         String description = txt_eventDescription.getText();
         LocalTime startTime = getTimeFromString(txt_startTime.getText());
@@ -57,7 +89,7 @@ public class NewEvent {
 
         Event collidingEvent = getCollidingEvent(newEvent);
         if (collidingEvent != null) {
-            System.out.println("Colliding event: " + collidingEvent.getTitle());
+            showErrorMessage("Event collides with another event: " + collidingEvent.getTitle());
             return;
         }
 
@@ -73,13 +105,16 @@ public class NewEvent {
     }
 
     @FXML
-    void onBtnCancelClick(ActionEvent event) {
+    void onBtnCancelClick(ActionEvent ignoredEvent) {
         getThisStage().close();
     }
 
     @FXML
-    void onChkOneDayToggle(ActionEvent event) {
-
+    void onChkOneDayToggle(ActionEvent ignoredEvent) {
+        date_endDate.setDisable(chk_oneDayEvent.isSelected());
+        if (chk_oneDayEvent.isSelected()) {
+            date_endDate.setValue(date_startDate.getValue());
+        }
     }
 
     private Stage getThisStage() {
@@ -100,5 +135,68 @@ public class NewEvent {
         int minute = Integer.parseInt(timeParts[1]);
 
         return LocalTime.of(hour, minute);
+    }
+
+    private boolean validateInput() {
+        String name = txt_eventName.getText();
+        String startTime = txt_startTime.getText();
+        String endTime = txt_endTime.getText();
+        LocalDate startDate = date_startDate.getValue();
+        LocalDate endDate = date_endDate.getValue();
+
+        if (name.isEmpty()) {
+            showErrorMessage("Event name cannot be empty");
+            return false;
+        }
+
+        if (startTime.isEmpty()) {
+            showErrorMessage("Event start time cannot be empty");
+            return false;
+        }
+
+        if (endTime.isEmpty()) {
+            showErrorMessage("Event end time cannot be empty");
+            return false;
+        }
+
+        if (startDate == null) {
+            showErrorMessage("Event start date cannot be empty");
+            return false;
+        }
+
+        if (endDate == null) {
+            showErrorMessage("Event end date cannot be empty");
+            return false;
+        }
+
+        if (txt_startTime.getLength() != 5) {
+            showErrorMessage("Event start time must be in the 24h format HH:MM");
+            return false;
+        }
+
+        if (txt_endTime.getLength() != 5) {
+            showErrorMessage("Event end time must be in the 24h format HH:MM");
+            return false;
+        }
+
+        LocalTime start = getTimeFromString(startTime);
+        LocalTime end = getTimeFromString(endTime);
+        LocalDateTime eventStart = LocalDateTime.of(startDate, start);
+        LocalDateTime eventEnd = LocalDateTime.of(endDate, end);
+
+        if (eventStart.isAfter(eventEnd)) {
+            showErrorMessage("Event start time cannot be after event end time");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Content error!");
+        alert.setHeaderText("Input data invalid");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
