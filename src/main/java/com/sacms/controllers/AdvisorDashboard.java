@@ -116,10 +116,10 @@ public class AdvisorDashboard {
             vbox_events_noEventMsgView.setVisible(false);
             vbox_events_eventView.setVisible(true);
             lbl_eventTitle.setText(event.getTitle());
-            lbl_startDate.setText(event.getStartDate().toString());
-            lbl_startTime.setText(event.getStartTime().toString());
-            lbl_endDate.setText(event.getEndDate().toString());
-            lbl_endTime.setText(event.getEndTime().toString());
+            lbl_startDate.setText("Start date: " + event.getStartDate().toString());
+            lbl_startTime.setText("Start time: " + event.getStartTime().toString());
+            lbl_endDate.setText("End date: " + event.getEndDate().toString());
+            lbl_endTime.setText("End time: " + event.getEndTime().toString());
         }
     }
 
