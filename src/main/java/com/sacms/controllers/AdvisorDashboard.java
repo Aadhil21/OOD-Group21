@@ -43,8 +43,7 @@ public class AdvisorDashboard {
     @FXML private Label lbl_startTime;
 
     // Event list
-    @FXML private ListView<?> lst_prevEvents;
-    @FXML private ListView<?> lst_upcomingEvents;
+    @FXML private ListView<Event> lst_events;
 
     // Menu bar
     @FXML private MenuItem menu_close;
