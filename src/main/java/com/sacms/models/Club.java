@@ -1,20 +1,8 @@
 package com.sacms.models;
 
-import com.sacms.database.AttendanceDAO;
 import com.sacms.database.ClubDAO;
 import com.sacms.database.EventDAO;
-import com.sacms.util.CreateReport;
-import com.sacms.util.DateTimeUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileOutputStream;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.List;
 
 public class Club {
