@@ -5,6 +5,9 @@ import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 import com.sacms.models.Event;
+import com.sacms.util.DateTimeUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,13 +64,37 @@ public class AdvisorDashboard {
     private final LoginManager loginManager;
     private Event selectedEvent;
     private Club currentClub;
+    private ObservableList<Event> observableEvents;
 
     public AdvisorDashboard() {
         loginManager = LoginManager.getInstance();
+        observableEvents = FXCollections.observableArrayList();
     }
+
     public void initialize() {
-        System.out.println("AdvisorDashboard initialized");
         Advisor advisor = (Advisor) loginManager.getCurrentUser();
+
+        Club club = advisor.getClubs().get(0);
+        observableEvents = FXCollections.observableList(club.getAllEvents());
+
+        lst_events.setItems(observableEvents);
+        lst_events.setPlaceholder(new Label("No events to display"));
+        lst_events.setCellFactory(eventListView -> new ListCell<>() {
+            @Override
+            protected void updateItem(Event event, boolean empty) {
+                super.updateItem(event, empty);
+                if (event != null && !empty) {
+                    final String event_date = DateTimeUtils.toISODate(event.getStartDate());
+                    final String event_title = event.getTitle();
+
+                    setText(event_date + " --- " + event_title);
+                }
+            };
+        });
+
+        lst_events.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setSelectedEvent(newValue)
+        );
 
         if (advisor.getClubs().isEmpty()) {
             vbox_noClubView.setVisible(true);
@@ -75,10 +102,9 @@ public class AdvisorDashboard {
         } else {
             vbox_noClubView.setVisible(false);
             vbox_clubAdvisorView.setVisible(true);
-            currentClub = advisor.getClubs().get(0);
+            setCurrentClub(advisor.getClubs().get(0));
         }
 
-        refreshAdvisorView();
         setSelectedEvent(null);
     }
 
