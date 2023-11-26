@@ -61,7 +61,9 @@ public class DBManager {
         try {
             Statement stmt = con.createStatement();
             stmt.execute(sqlStatement);
-            key = getGeneratedKey();
+            stmt.close();
+            key = getGeneratedKey(con);
+            con.close();
         } catch (SQLException e) {
             System.out.println("Error executing SQL statement: " + e);
         }
@@ -69,11 +71,12 @@ public class DBManager {
         return key;
     }
 
-    private int getGeneratedKey() throws SQLException {
-        Connection con = getConnection();
-        if (con == null) return -1;
-        Statement stmt =  con.createStatement();
-        return stmt.executeQuery("SELECT last_insert_rowid();").getInt(1);
+    private int getGeneratedKey(Connection connection) throws SQLException {
+        if (connection == null) return -1;
+        Statement stmt =  connection.createStatement();
+        final int key = stmt.executeQuery("SELECT last_insert_rowid();").getInt(1);
+        stmt.close();
+        return key;
     }
 
     /**
