@@ -1,18 +1,22 @@
 package com.sacms;
 
+import com.sacms.models.Club;
+import com.sacms.models.Event;
+import com.sacms.controllers.NewEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.util.List;
 
 public class NewEventDialog {
     private Stage stage;
+    private Event newEvent;
 
-    public NewEventDialog(Window parent) {
+    public NewEventDialog(Window parent, Club club, List<Event> events) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/NewEvent.fxml"));
             Scene scene = new Scene(fxmlLoader.load(),400,400);
@@ -23,13 +27,23 @@ public class NewEventDialog {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.setResizable(false);
+
+            NewEvent controller = fxmlLoader.getController();
+            controller.setEvents(events);
+            controller.setClub(club);
+            controller.setOnCreateEventHandler(event -> {
+                newEvent = event;
+                stage.close();
+                return null;
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showAndWait() {
-        if (stage == null) return;
+    public Event showAndWait() {
+        if (stage == null) return null;
         stage.showAndWait();
+        return newEvent;
     }
 }
