@@ -39,31 +39,6 @@
       </MenuBar>
       <StackPane VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="vbox_noClubView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: inherit;" StackPane.alignment="TOP_LEFT">
-               <children>
-                  <Label fx:id="lbl_noClubView_username" maxHeight="-Infinity" text="Hello user!">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Seems like you don't have any clubs yet. ">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btn_noClubView_createClub" mnemonicParsing="false" onAction="#onNoClubViewCreateClub" text="Make a club now!">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
             <VBox fx:id="vbox_clubAdvisorView">
                <children>
                   <HBox alignment="CENTER_LEFT">
@@ -181,6 +156,31 @@
                         </StackPane>
                     </items>
                   </SplitPane>
+               </children>
+            </VBox>
+            <VBox fx:id="vbox_noClubView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: inherit;" StackPane.alignment="TOP_LEFT">
+               <children>
+                  <Label fx:id="lbl_noClubView_username" maxHeight="-Infinity" text="Hello user!">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Seems like you don't have any clubs yet. ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_noClubView_createClub" mnemonicParsing="false" onAction="#onNoClubViewCreateClub" text="Make a club now!">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </children>
