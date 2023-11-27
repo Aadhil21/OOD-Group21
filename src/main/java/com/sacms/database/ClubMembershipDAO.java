@@ -1,6 +1,13 @@
 package com.sacms.database;
 
+import com.sacms.models.Club;
 import com.sacms.models.ClubMembership;
+import com.sacms.models.Student;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is responsible for handling the database operations for the ClubMembership model.
@@ -30,9 +37,32 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
         return null;
     }
 
-    public ClubMembership read(int i) {
-        return null;
+    public List<Student> getMembers(Club club) {
+        List<Student> students = new ArrayList<>();
+        final String sqlStatement = String.format(
+            "SELECT S.* FROM Members M JOIN Student S ON M.student = S.uid WHERE M.club = '%s';",
+            club.getName()
+        );
+
+        try (DBManager.ResultContainer results = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = results.resultSet;
+            while (resultSet.next()) {
+                final int uid = resultSet.getInt("uid");
+                final String firstName = resultSet.getString("first_name");
+                final String lastName = resultSet.getString("last_name");
+                final String email = resultSet.getString("email");
+                final String phone = resultSet.getString("phone");
+
+                Student student = new Student(uid, firstName, lastName, phone, email, "");
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return students;
     }
+
 
     @Override
     public void update(ClubMembership clubMembership) {

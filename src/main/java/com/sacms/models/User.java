@@ -17,6 +17,23 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User user) {
+            if (user.getUid() == -1) return dataEqualsTo(user);
+            return user.getUid() == uid;
+        }
+
+        return false;
+    }
+
+    private boolean dataEqualsTo(User user) {
+        return user.getFirstName().equals(firstName) &&
+            user.getLastName().equals(lastName) &&
+            user.getPhone().equals(phone) &&
+            user.getEmail().equals(email);
+    }
+
     public int getUid() {
         return uid;
     }

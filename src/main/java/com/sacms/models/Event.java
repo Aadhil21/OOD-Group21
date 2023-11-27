@@ -27,7 +27,13 @@ public class Event {
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.attendees = new ArrayList<>();
+
+        if (id != -1) {
+            AttendanceDAO attendanceDAO = new AttendanceDAO();
+            this.attendees = attendanceDAO.getAttendedStudents(this);
+        } else {
+            this.attendees = new ArrayList<>();
+        }
     }
 
     public Event(Club club, String title, LocalDate startDate, LocalDate endDate,
@@ -100,7 +106,7 @@ public class Event {
         this.endTime = endTime;
     }
 
-    public void markAttendance(Student student) {
+    public void addAttendee(Student student) {
         EventAttendee eventAttendee = new EventAttendee(this, student);
         AttendanceDAO attendanceDAO = new AttendanceDAO();
         attendanceDAO.create(eventAttendee);
@@ -114,5 +120,12 @@ public class Event {
         LocalDateTime otherEnd = event.getEndDate().atTime(event.getEndTime());
 
         return DateTimeUtils.isDateTimeOverlapping(thisStart, thisEnd, otherStart, otherEnd);
+    }
+
+    public void removeAttendee(Student student) {
+        EventAttendee eventAttendee = new EventAttendee(this, student);
+        AttendanceDAO attendanceDAO = new AttendanceDAO();
+        attendanceDAO.delete(eventAttendee);
+        attendees.remove(student);
     }
 }

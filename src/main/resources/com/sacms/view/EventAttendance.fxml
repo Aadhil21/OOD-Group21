@@ -75,7 +75,7 @@
             <Insets top="10.0" />
          </VBox.margin>
          <children>
-            <Button mnemonicParsing="false" onAction="#onBtnAttend" text="Mark student as attended" />
+            <Button fx:id="btn_markAsAttended" mnemonicParsing="false" onAction="#onBtnAttend" text="Mark student as attended" />
             <Button mnemonicParsing="false" onAction="#onBtnClose" text="Close" />
          </children>
       </HBox>

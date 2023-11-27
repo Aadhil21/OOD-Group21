@@ -1,6 +1,8 @@
 package com.sacms.models;
 
 import com.sacms.database.ClubDAO;
+import com.sacms.database.ClubMembershipDAO;
+import com.sacms.database.DAOFactory;
 import com.sacms.database.EventDAO;
 
 import java.util.List;
@@ -46,5 +48,10 @@ public class Club {
     public void addEvent(Event event) {
         eventDAO.create(event);
         events.add(event);
+    }
+
+    public List<Student> getMembers() {
+        ClubMembershipDAO clubMembershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
+        return clubMembershipDAO.getMembers(this);
     }
 }

@@ -6,6 +6,7 @@ import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 import com.sacms.models.Event;
+import com.sacms.models.Student;
 import com.sacms.util.DateTimeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,10 +62,12 @@ public class AdvisorDashboard {
     private Event selectedEvent;
     private Club currentClub;
     private ObservableList<Event> observableEvents;
+    private final ObservableList<Student> eventAttendees;
 
     public AdvisorDashboard() {
         loginManager = LoginManager.getInstance();
         observableEvents = FXCollections.observableArrayList();
+        eventAttendees = FXCollections.observableArrayList();
     }
 
     public void initialize() {
@@ -91,6 +94,7 @@ public class AdvisorDashboard {
         lst_events.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> setSelectedEvent(newValue)
         );
+        initEventAttendanceTable();
 
         if (advisor.getClubs().isEmpty()) {
             vbox_noClubView.setVisible(true);
@@ -102,6 +106,10 @@ public class AdvisorDashboard {
         }
 
         setSelectedEvent(null);
+    }
+
+    private void initEventAttendanceTable() {
+
     }
 
     private void setCurrentClub(Club club) {
@@ -134,21 +142,29 @@ public class AdvisorDashboard {
         if (event == null) {
             vbox_events_noEventMsgView.setVisible(true);
             vbox_events_eventView.setVisible(false);
-        } else {
-            vbox_events_noEventMsgView.setVisible(false);
-            vbox_events_eventView.setVisible(true);
-            lbl_eventTitle.setText(event.getTitle());
-            lbl_startDate.setText("Start date: " + event.getStartDate().toString());
-            lbl_startTime.setText("Start time: " + event.getStartTime().toString());
-            lbl_endDate.setText("End date: " + event.getEndDate().toString());
-            lbl_endTime.setText("End time: " + event.getEndTime().toString());
+            return;
         }
+
+        vbox_events_noEventMsgView.setVisible(false);
+        vbox_events_eventView.setVisible(true);
+        lbl_eventTitle.setText(event.getTitle());
+        lbl_startDate.setText("Start date: " + event.getStartDate().toString());
+        lbl_startTime.setText("Start time: " + event.getStartTime().toString());
+        lbl_endDate.setText("End date: " + event.getEndDate().toString());
+        lbl_endTime.setText("End time: " + event.getEndTime().toString());
+
+        eventAttendees.clear();
+        eventAttendees.addAll(event.getAttendees());
     }
 
     @FXML
     void onBtnAddAttendance(ActionEvent ignoredEvent) {
         Window window = btn_addAttendance.getScene().getWindow();
         EventAttendanceDialog eventAttendanceDialog = new EventAttendanceDialog(window, selectedEvent);
+        eventAttendanceDialog.setOnStudentAttendListener(student -> {
+            eventAttendees.add(student);
+            return null;
+        });
         eventAttendanceDialog.showAndWait();
     }
 
