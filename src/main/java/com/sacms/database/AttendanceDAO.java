@@ -48,7 +48,15 @@ public class AttendanceDAO implements DAO<EventAttendee> {
 
     @Override
     public void delete(EventAttendee eventAttendee) {
+        final int event = eventAttendee.event().getId();
+        final int student = eventAttendee.student().getUid();
 
+        final String sqlStatement = String.format(
+                "DELETE FROM EventAttendance WHERE event = %d AND participant = %d;",
+                event, student
+        );
+
+        dbManager.executeSQLStatement(sqlStatement);
     }
 
     public List<Student> getAttendedStudents(Event event) {

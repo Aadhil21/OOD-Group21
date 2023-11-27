@@ -147,10 +147,12 @@
                                           </HBox>
                                           <TableView fx:id="tbl_attendance" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                             <columns>
-                                              <TableColumn fx:id="tcol_studentId" prefWidth="113.0" text="Student ID" />
-                                              <TableColumn fx:id="tcol_firstName" prefWidth="111.0" text="First name" />
-                                                <TableColumn fx:id="tcol_lastName" prefWidth="111.0" text="Last name" />
-                                                <TableColumn fx:id="tcol_phoneNumber" prefWidth="111.0" text="Phone number" />
+                                              <TableColumn fx:id="tcol_studentId" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" sortable="false" text="Student ID" />
+                                              <TableColumn fx:id="tcol_firstName" editable="false" prefWidth="111.0" text="First name" />
+                                                <TableColumn fx:id="tcol_lastName" editable="false" prefWidth="111.0" text="Last name" />
+                                                <TableColumn fx:id="tcol_email" editable="false" prefWidth="93.0" sortable="false" text="Email" />
+                                                <TableColumn fx:id="tcol_phoneNumber" editable="false" prefWidth="110.0" sortable="false" text="Phone number" />
+                                                <TableColumn fx:id="tcol_removeAttendance" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="135.0" resizable="false" sortable="false" text="Remove Attendance" />
                                             </columns>
                                           </TableView>
                                        </children>

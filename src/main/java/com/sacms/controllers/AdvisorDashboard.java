@@ -8,12 +8,14 @@ import com.sacms.models.Club;
 import com.sacms.models.Event;
 import com.sacms.models.Student;
 import com.sacms.util.DateTimeUtils;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
 public class AdvisorDashboard {
@@ -52,11 +54,13 @@ public class AdvisorDashboard {
     @FXML private MenuItem menu_switchClub;
 
     // Attendance table
-    @FXML private TableView<?> tbl_attendance;
-    @FXML private TableColumn<?, ?> tcol_firstName;
-    @FXML private TableColumn<?, ?> tcol_lastName;
-    @FXML private TableColumn<?, ?> tcol_phoneNumber;
-    @FXML private TableColumn<?, ?> tcol_studentId;
+    @FXML private TableView<Student> tbl_attendance;
+    @FXML private TableColumn<Student, String> tcol_email;
+    @FXML private TableColumn<Student, String> tcol_firstName;
+    @FXML private TableColumn<Student, String> tcol_lastName;
+    @FXML private TableColumn<Student, String> tcol_phoneNumber;
+    @FXML private TableColumn<Student, Void> tcol_removeAttendance;
+    @FXML private TableColumn<Student, String> tcol_studentId;
 
     private final LoginManager loginManager;
     private Event selectedEvent;
@@ -109,7 +113,35 @@ public class AdvisorDashboard {
     }
 
     private void initEventAttendanceTable() {
+        tcol_studentId.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getUid())));
+        tcol_firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
+        tcol_lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        tcol_email.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        tcol_phoneNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone()));
+        tcol_removeAttendance.setCellFactory(cellData -> new TableCell<>() {
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
 
+                if (!empty) {
+                    Label lbl_removeAttendance = new Label("Remove Attendance");
+                    lbl_removeAttendance.setTextFill(Color.RED);
+                    lbl_removeAttendance.setUnderline(true);
+
+                    lbl_removeAttendance.setOnMouseClicked(event -> {
+                        Student student = getTableRow().getItem();
+                        selectedEvent.removeAttendee(student);
+                        eventAttendees.remove(student);
+                    });
+
+                    setGraphic(lbl_removeAttendance);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
+
+        tbl_attendance.setItems(eventAttendees);
     }
 
     private void setCurrentClub(Club club) {
