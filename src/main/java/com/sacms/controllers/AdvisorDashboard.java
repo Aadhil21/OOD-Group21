@@ -1,5 +1,6 @@
 package com.sacms.controllers;
 
+import com.sacms.EventAttendanceDialog;
 import com.sacms.NewEventDialog;
 import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
@@ -145,8 +146,10 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onBtnAddAttendance(ActionEvent event) {
-
+    void onBtnAddAttendance(ActionEvent ignoredEvent) {
+        Window window = btn_addAttendance.getScene().getWindow();
+        EventAttendanceDialog eventAttendanceDialog = new EventAttendanceDialog(window, selectedEvent);
+        eventAttendanceDialog.showAndWait();
     }
 
     @FXML
