@@ -1,7 +1,5 @@
 package com.sacms.controllers;
 
-import com.sacms.database.DAOFactory;
-import com.sacms.database.EventDAO;
 import com.sacms.models.Club;
 import com.sacms.models.Event;
 import javafx.event.ActionEvent;
@@ -95,8 +93,7 @@ public class NewEvent {
             return;
         }
 
-        EventDAO eventDAO = (EventDAO) DAOFactory.getInstance().getDAO(Event.class);
-        newEvent = eventDAO.create(newEvent);
+        club.addEvent(newEvent);
 
         if (callback != null) {
             callback.call(newEvent);

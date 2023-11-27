@@ -65,7 +65,7 @@ public class AdvisorDashboard {
     private final LoginManager loginManager;
     private Event selectedEvent;
     private Club currentClub;
-    private ObservableList<Event> observableEvents;
+    private final ObservableList<Event> observableEvents;
     private final ObservableList<Student> eventAttendees;
 
     public AdvisorDashboard() {
@@ -78,7 +78,7 @@ public class AdvisorDashboard {
         Advisor advisor = (Advisor) loginManager.getCurrentUser();
 
         Club club = advisor.getClubs().get(0);
-        observableEvents = FXCollections.observableList(club.getAllEvents());
+        observableEvents.setAll(club.getAllEvents());
 
         lst_events.setItems(observableEvents);
         lst_events.setPlaceholder(new Label("No events to display"));
