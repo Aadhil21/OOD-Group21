@@ -21,6 +21,7 @@ public class NewEvent {
     @FXML private CheckBox chk_oneDayEvent;
     @FXML private DatePicker date_endDate;
     @FXML private DatePicker date_startDate;
+    @FXML private Label lbl_clubName;
     @FXML private TextField txt_endTime;
     @FXML private TextField txt_eventDescription;
     @FXML private TextField txt_eventName;
@@ -40,6 +41,7 @@ public class NewEvent {
 
     public void setClub(Club club) {
         this.club = club;
+        lbl_clubName.setText(club.getName());
     }
 
     public void initialize() {

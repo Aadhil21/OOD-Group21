@@ -20,7 +20,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label text="Club Name">
+      <Label fx:id="lbl_clubName" text="Club Name">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
