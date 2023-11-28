@@ -81,13 +81,11 @@ public class SignUpController implements Initializable {
             if (role.equals("Student")) {
                 Student student = new Student(userId, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (studentDAO.create(student) != null) {
-                    LoginManager.getInstance().login(student);
                     screenController.activate("Login");
                 }
             } else if (role.equals("Advisor")) {
                 Advisor advisor = new Advisor(userId, userFirstName, userLastName, userPhoneNo, userEmail, userPassword);
                 if (advisorDAO.create(advisor) != null) {
-                    LoginManager.getInstance().login(advisor);
                     screenController.activate("Login");
                 }
             }

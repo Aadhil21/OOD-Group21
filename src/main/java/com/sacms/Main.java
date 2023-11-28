@@ -26,7 +26,7 @@ public class Main extends Application {
 
         screenController.addScreen("Login", getClass().getResource("LoginView.fxml"));
         screenController.addScreen("SignUp", getClass().getResource("SignUpView.fxml"));
-        screenController.addScreen("AdvisorDashboard", getClass().getResource("view/AdvisorDashboard.fxml"));
+        screenController.addScreen("AdvisorDashboard", getClass().getResource("AdvisorDashboard.fxml"));
         screenController.addScreen("StudentDashboard", getClass().getResource("StudentDashboard.fxml"));
         screenController.addScreen("JoinClub", getClass().getResource("JoinClubView.fxml"));
     }

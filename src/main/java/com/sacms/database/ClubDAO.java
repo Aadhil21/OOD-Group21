@@ -4,6 +4,7 @@ import com.sacms.models.Club;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * This class is responsible for handling all database operations related to the Club model.
@@ -32,7 +33,8 @@ public class ClubDAO implements DAO<Club>{
         return null;
     }
 
-    public Club read(int i) {
+    public List<Club> read() {
+
         return null;
     }
 

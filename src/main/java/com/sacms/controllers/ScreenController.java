@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ScreenController {
-    private final HashMap<String, URL> screenMap = new HashMap<>();
+    private final HashMap<String, URL> screenMap = new HashMap<>(100);
     private Stage stage = null;
     private static ScreenController instance = null;
 

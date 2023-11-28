@@ -34,7 +34,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
         final String email = advisor.getEmail();
         final String password = advisor.getPassword();
 
-        final String sqlStatement = String.format("INSERT INTO advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
+        final String sqlStatement = String.format("INSERT INTO Advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
 
         dbManager.executeSQLStatement(sqlStatement);
         System.out.println("inserted advisor");

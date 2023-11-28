@@ -11,11 +11,11 @@
    <children>
       <Button layoutX="264.0" layoutY="260.0" mnemonicParsing="false" onAction="#signIn" prefHeight="32.0" prefWidth="91.0" text="Sign In" />
       <Button layoutX="264.0" layoutY="340.0" mnemonicParsing="false" onAction="#signUp" prefHeight="32.0" prefWidth="91.0" text="Sign Up" />
-      <TextField fx:id="uid" layoutX="210.0" layoutY="70.0" prefWidth="200.0" />
+      <TextField fx:id="userID" layoutX="210.0" layoutY="70.0" prefWidth="200.0" />
       <PasswordField fx:id="password" layoutX="210.0" layoutY="140.0" prefWidth="200.0" />
       <Text layoutX="210.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
       <Text layoutX="210.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
-      <ChoiceBox fx:id="roles" layoutX="210.0" layoutY="210.0" prefHeight="32.0" prefWidth="200.0" />
+      <ChoiceBox fx:id="rolesChoiceBox" layoutX="210.0" layoutY="210.0" prefHeight="32.0" prefWidth="200.0" />
       <Text layoutX="210.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role:" />
       <Text layoutX="302.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or" />
    </children>

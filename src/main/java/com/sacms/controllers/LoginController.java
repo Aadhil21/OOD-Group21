@@ -20,17 +20,17 @@ public class LoginController implements Initializable {
     private PasswordField password;
 
     @FXML
-    private ChoiceBox<String> roles;
+    private ChoiceBox<String> rolesChoiceBox;
 
     @FXML
-    private TextField uid;
+    private TextField userID;
     private final ScreenController screenController = ScreenController.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roles.getItems().clear();
-        roles.getItems().addAll("Advisor", "Student");
-        roles.setValue("Student");
+        rolesChoiceBox.getItems().clear();
+        rolesChoiceBox.getItems().addAll("Advisor", "Student");
+        rolesChoiceBox.setValue("Student");
     }
 
     @FXML
@@ -39,9 +39,9 @@ public class LoginController implements Initializable {
             StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
             AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
 
-            String userIdText = uid.getText();
+            String userIdText = userID.getText();
             String userPassword = password.getText();
-            String role = roles.getValue();
+            String role = rolesChoiceBox.getValue();
 
             if (userIdText.isEmpty() || userPassword.isEmpty()) {
                 new Alert(Alert.AlertType.WARNING, "Please fill in all fields", ButtonType.OK).showAndWait();
@@ -50,29 +50,26 @@ public class LoginController implements Initializable {
 
             int userID = Integer.parseInt(userIdText);
 
-            switch (role) {
-                case "Student":
-                    Student student = studentDAO.read(userID);
-                    if (student != null && student.getPassword().equals(userPassword)) {
-                        LoginManager.getInstance().login(student);
-                        screenController.activate("StudentDashboard");
-                    }
-                    break;
-
-                case "Advisor":
-                    Advisor advisor = advisorDAO.read(userID);
-                    if (advisor != null && advisor.getPassword().equals(userPassword)) {
-                        LoginManager.getInstance().login(advisor);
-                        screenController.activate("AdvisorDashboard", true);
-                    }
-                    break;
-
-                default:
-                    throw new Exception();
+            if (role.equals("Student")) {
+                Student student = studentDAO.read(userID);
+                if (student != null && student.getPassword().equals(userPassword)) {
+                    LoginManager.getInstance().login(student);
+                    screenController.activate("StudentDashboard");
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Please enter the correct password").showAndWait();
+                }
+            } else if (role.equals("Advisor")) {
+                Advisor advisor = advisorDAO.read(userID);
+                if (advisor != null && advisor.getPassword().equals(userPassword)) {
+                    LoginManager.getInstance().login(advisor);
+                    screenController.activate("AdvisorDashboard");
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Please enter the correct password").showAndWait();
+                }
             }
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.WARNING, "Please enter a valid User ID").showAndWait();
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.WARNING, "Warning: Profile doesn't exist").showAndWait();
         }
