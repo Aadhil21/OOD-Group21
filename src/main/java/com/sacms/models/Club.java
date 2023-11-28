@@ -68,4 +68,11 @@ public class Club {
         ClubMembershipDAO clubMembershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
         return clubMembershipDAO.getMembers(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Club club)) return false;
+        return club.getName().equals(this.getName());
+    }
 }
