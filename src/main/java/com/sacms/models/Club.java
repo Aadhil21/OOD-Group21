@@ -15,21 +15,23 @@ public class Club {
     private Advisor advisor;
     private List<Event> events;
 
-
-    public Club() {
-    }
-
-    public Club(String name, Advisor advisor) {
+    public Club(String name, String description, Advisor advisor) {
         this.name = name;
         this.advisor = advisor;
+        this.description = description;
         this.events = eventDAO.getEventsByClub(this);
+    }
+
+    public Club(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName() {
         this.name = name;
     }
 
