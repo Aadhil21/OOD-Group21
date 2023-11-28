@@ -100,7 +100,8 @@ public class AdvisorDAO extends UserDAO<Advisor> {
 
             while (resultSet.next()) {
                 String clubName = resultSet.getString("name");
-                Club club = new Club(clubName, advisor);
+                String clubDescription = resultSet.getString("description");
+                Club club = new Club(clubName, clubDescription, advisor);
                 clubs.add(club);
             }
         } catch (SQLException e) {

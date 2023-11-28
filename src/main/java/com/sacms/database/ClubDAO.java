@@ -44,6 +44,13 @@ public class ClubDAO implements DAO<Club>{
 
     @Override
     public void delete(Club club) {
+        final String name = club.getName();
+        final String sqlStatement = String.format(
+            "DELETE FROM Clubs WHERE name = '%s';",
+            name
+        );
+
+        dbManager.executeSQLStatement(sqlStatement);
     }
 
 }

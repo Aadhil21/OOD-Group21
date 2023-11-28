@@ -15,10 +15,16 @@ public class Club {
     private Advisor advisor;
     private List<Event> events;
 
-    public Club(String name, Advisor advisor) {
+    public Club(String name, String description, Advisor advisor) {
         this.name = name;
         this.advisor = advisor;
+        this.description = description;
         this.events = eventDAO.getEventsByClub(this);
+    }
+
+    public Club(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public String getName() {

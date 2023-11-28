@@ -1,6 +1,7 @@
 package com.sacms.models;
 
 import com.sacms.database.AdvisorDAO;
+import com.sacms.database.ClubDAO;
 import com.sacms.database.DAOFactory;
 
 import java.util.ArrayList;
@@ -21,5 +22,16 @@ public class Advisor extends User {
         return clubs;
     }
 
-    
+    public void addClub(Club club) {
+        club.setAdvisor(this);
+        clubs.add(club);
+        ClubDAO clubDAO = (ClubDAO) DAOFactory.getInstance().getDAO(Club.class);
+        clubDAO.create(club);
+    }
+
+    public void removeClub(Club club) {
+        clubs.remove(club);
+        ClubDAO clubDAO = (ClubDAO) DAOFactory.getInstance().getDAO(Club.class);
+        clubDAO.delete(club);
+    }
 }

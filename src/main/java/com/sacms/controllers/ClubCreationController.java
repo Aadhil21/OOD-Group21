@@ -30,11 +30,15 @@ public class ClubCreationController {
 
     @FXML
     void Add(ActionEvent event) {
+        // TODO: Put real values for CLUB_NAME and CLUB_DESCRIPTION
+        Club club = new Club("CLUB_NAME", "CLUB_DESCRIPTION");
+        advisor.addClub(club);
     }
 
     @FXML
     void Remove(ActionEvent event) {
-
+        // TODO: Get the selected club from the table then delete. Following is an example.
+        // advisor.removeClub(club);
     }
 
     public void setAdvisor(Advisor advisor) {
