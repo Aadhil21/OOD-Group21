@@ -84,7 +84,7 @@ public class SignInOutController implements Initializable {
 
         if (advisor != null && advisor.getPassword().equals(userPassword)) {
             LoginManager.getInstance().login(advisor);
-            screenController.activate("AdvisorDashboard");
+            screenController.activate("AdvisorDashboard", true);
         } else {
             showAlert("Please enter the correct password", Alert.AlertType.WARNING);
         }
