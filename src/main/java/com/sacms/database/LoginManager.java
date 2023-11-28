@@ -1,5 +1,6 @@
 package com.sacms.database;
 
+import com.sacms.controllers.ScreenController;
 import com.sacms.models.User;
 
 /**
@@ -37,6 +38,7 @@ public class LoginManager {
      */
     public void logout() {
         this.currentUser = null;
+        ScreenController.getInstance().activate("Login");
     }
 
     /**
