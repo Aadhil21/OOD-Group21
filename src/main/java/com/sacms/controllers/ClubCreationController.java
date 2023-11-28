@@ -1,5 +1,5 @@
 package com.sacms.controllers;
-import com.sacms.models.Advisor;
+import com.sacms.database.ClubDAO;
 import com.sacms.models.Club;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 public class ClubCreationController {
-    private Advisor advisor;
 
     @FXML
     private Button btnAdd;
@@ -30,18 +29,28 @@ public class ClubCreationController {
 
     @FXML
     void Add(ActionEvent event) {
-        // TODO: Put real values for CLUB_NAME and CLUB_DESCRIPTION
-        Club club = new Club("CLUB_NAME", "CLUB_DESCRIPTION");
-        advisor.addClub(club);
+
+        String name = txtName.getText();
+        String description = txtDescription.getText();
+
+        Club newClub = new Club();
+        newClub.setName(name);
+        newClub.setDescription(description);
+
+        ClubDAO clubDAO = new ClubDAO();
+        Club insertedClub = clubDAO.create(newClub);
+
+        if (insertedClub != null) {
+            // If insertion is successful, update the UI's table
+            //updateTable();
+        } else {
+            // Handle insertion failure
+            System.out.println("Failed to add the club to the database.");
+        }
     }
 
     @FXML
     void Remove(ActionEvent event) {
-        // TODO: Get the selected club from the table then delete. Following is an example.
-        // advisor.removeClub(club);
-    }
 
-    public void setAdvisor(Advisor advisor) {
-        this.advisor = advisor;
     }
 }

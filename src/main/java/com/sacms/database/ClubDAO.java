@@ -33,6 +33,16 @@ public class ClubDAO implements DAO<Club>{
         return null;
     }
 
+    @Override
+    public void delete(Club club) {
+        try {
+            String query = "DELETE FROM Clubs WHERE club_id = " + club.getName();
+            dbManager.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Club> read() {
 
         return null;
@@ -42,15 +52,5 @@ public class ClubDAO implements DAO<Club>{
     public void update(Club club) {
     }
 
-    @Override
-    public void delete(Club club) {
-        final String name = club.getName();
-        final String sqlStatement = String.format(
-            "DELETE FROM Clubs WHERE name = '%s';",
-            name
-        );
-
-        dbManager.executeSQLStatement(sqlStatement);
-    }
 
 }
