@@ -18,6 +18,8 @@ import java.util.List;
 public class EventDAO implements DAO<Event> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    EventDAO() {}
+
     @Override
     public void createTable() {
         final String createEvents = "CREATE TABLE IF NOT EXISTS Events(e_id INTEGER PRIMARY KEY, club TEXT NOT NULL, " +

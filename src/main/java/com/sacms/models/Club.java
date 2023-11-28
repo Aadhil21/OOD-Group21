@@ -8,8 +8,7 @@ import com.sacms.database.EventDAO;
 import java.util.List;
 
 public class Club {
-    static ClubDAO clubDAO = new ClubDAO();
-    static EventDAO eventDAO = new EventDAO();
+    EventDAO eventDAO = (EventDAO) DAOFactory.getInstance().getDAO(Event.class);
     private String name;
     private String description;
     private Advisor advisor;

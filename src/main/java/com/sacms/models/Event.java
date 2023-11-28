@@ -1,6 +1,7 @@
 package com.sacms.models;
 
 import com.sacms.database.AttendanceDAO;
+import com.sacms.database.DAOFactory;
 import com.sacms.util.DateTimeUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class Event {
         this.endTime = endTime;
 
         if (id != -1) {
-            AttendanceDAO attendanceDAO = new AttendanceDAO();
+            AttendanceDAO attendanceDAO = (AttendanceDAO) DAOFactory.getInstance().getDAO(EventAttendee.class);
             this.attendees = attendanceDAO.getAttendedStudents(this);
         } else {
             this.attendees = new ArrayList<>();
@@ -108,7 +109,7 @@ public class Event {
 
     public void addAttendee(Student student) {
         EventAttendee eventAttendee = new EventAttendee(this, student);
-        AttendanceDAO attendanceDAO = new AttendanceDAO();
+        AttendanceDAO attendanceDAO = (AttendanceDAO) DAOFactory.getInstance().getDAO(EventAttendee.class);
         attendanceDAO.create(eventAttendee);
         attendees.add(student);
     }
@@ -124,7 +125,7 @@ public class Event {
 
     public void removeAttendee(Student student) {
         EventAttendee eventAttendee = new EventAttendee(this, student);
-        AttendanceDAO attendanceDAO = new AttendanceDAO();
+        AttendanceDAO attendanceDAO = (AttendanceDAO) DAOFactory.getInstance().getDAO(EventAttendee.class);
         attendanceDAO.delete(eventAttendee);
         attendees.remove(student);
     }

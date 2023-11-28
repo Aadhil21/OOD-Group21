@@ -16,7 +16,7 @@ public class DBManager {
      * Returns the singleton instance of the DBManager.
      * @return The singleton instance of the DBManager.
      */
-    public static DBManager getInstance() {
+    static DBManager getInstance() {
         if (instance == null) {
             instance = new DBManager();
         }

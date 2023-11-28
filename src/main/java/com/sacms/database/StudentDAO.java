@@ -11,6 +11,8 @@ import java.sql.SQLException;
 public class StudentDAO extends UserDAO<Student> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    StudentDAO() {}
+
     @Override
     public void createTable() {
         final String createStudent = "CREATE TABLE IF NOT EXISTS Student(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
