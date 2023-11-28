@@ -63,6 +63,30 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
 
         return students;
     }
+    public List<Club> getClubsToJoin(Student student) {
+        List<Club> clubs = new ArrayList<>();
+        final String sqlStatement = String.format(
+                "SELECT c.name, c.description" +
+                        "FROM Clubs c" +
+                        "LEFT JOIN Members m ON c.name = m.club AND m.student = %d" +
+                        "WHERE m.club IS NULL';",
+                student.getUid()
+        );
+
+        try (DBManager.ResultContainer results = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = results.resultSet;
+            while (resultSet.next()) {
+                final String clubname = resultSet.getString("name");
+                final String clubdesc = resultSet.getString("description");
+
+                Club club = new Club(clubname,clubdesc);
+                clubs.add(club);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return clubs;
+    }
 
 
     @Override

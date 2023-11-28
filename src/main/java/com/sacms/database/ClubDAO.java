@@ -35,9 +35,9 @@ public class ClubDAO implements DAO<Club>{
         return null;
     }
 
-    public List<Club> read() {
-
+    public List<Club> read() throws SQLException {
         return null;
+
     }
 
     @Override
