@@ -9,7 +9,7 @@ public class DBManager {
     private final String url;
 
     private DBManager() {
-        url = "jdbc:sqlite:" + AppDataDir.getAppDataDir() + "/scam-ood-cw-test-1.db";
+        url = "jdbc:sqlite:" + AppDataDir.getAppDataDir() + "/scam-ood-cw-test-2.db";
     }
 
     /**
