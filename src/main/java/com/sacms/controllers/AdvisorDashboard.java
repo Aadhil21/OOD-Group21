@@ -77,9 +77,6 @@ public class AdvisorDashboard {
     public void initialize() {
         Advisor advisor = (Advisor) loginManager.getCurrentUser();
 
-        Club club = advisor.getClubs().get(0);
-        observableEvents.setAll(club.getAllEvents());
-
         lst_events.setItems(observableEvents);
         lst_events.setPlaceholder(new Label("No events to display"));
         lst_events.setCellFactory(eventListView -> new ListCell<>() {
@@ -146,6 +143,8 @@ public class AdvisorDashboard {
 
     private void setCurrentClub(Club club) {
         currentClub = club;
+        observableEvents.clear();
+        observableEvents.setAll(club.getAllEvents());
         refreshAdvisorView();
     }
 
@@ -162,6 +161,8 @@ public class AdvisorDashboard {
 
     private void setSelectedEvent(Event event) {
         selectedEvent = event;
+        eventAttendees.clear();
+        eventAttendees.addAll(event.getAttendees());
         refreshEventPane();
     }
 
@@ -184,9 +185,6 @@ public class AdvisorDashboard {
         lbl_startTime.setText("Start time: " + event.getStartTime().toString());
         lbl_endDate.setText("End date: " + event.getEndDate().toString());
         lbl_endTime.setText("End time: " + event.getEndTime().toString());
-
-        eventAttendees.clear();
-        eventAttendees.addAll(event.getAttendees());
     }
 
     @FXML
