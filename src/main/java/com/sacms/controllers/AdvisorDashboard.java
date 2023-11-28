@@ -3,6 +3,7 @@ package com.sacms.controllers;
 import com.sacms.ClubCreateDialog;
 import com.sacms.EventAttendanceDialog;
 import com.sacms.NewEventDialog;
+import com.sacms.SwitchClubDialog;
 import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
@@ -18,7 +19,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
-import org.apache.poi.ss.formula.functions.Log;
 
 public class AdvisorDashboard {
     @FXML private VBox vbox_noClubView;
@@ -210,7 +210,7 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onBtnCreateEvent(ActionEvent event) {
+    void onBtnCreateEvent(ActionEvent ignoredEvent) {
         Window window = btn_createEvent.getScene().getWindow();
         NewEventDialog newEventDialog = new NewEventDialog(window, currentClub, currentClub.getAllEvents());
         Event newEvent = newEventDialog.showAndWait();
@@ -223,7 +223,7 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onMenuCloseClick(ActionEvent event) {
+    void onMenuCloseClick(ActionEvent ignoredEvent) {
         lbl_clubName.getScene().getWindow().hide();
     }
 
@@ -238,8 +238,12 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onMenuSwitchClubClick(ActionEvent event) {
-
+    void onMenuSwitchClubClick(ActionEvent ignoredEvent) {
+        Advisor advisor = (Advisor) loginManager.getCurrentUser();
+        Window window = btn_createEvent.getScene().getWindow();
+        SwitchClubDialog switchClubDialog = new SwitchClubDialog(window, advisor);
+        Club newClub = switchClubDialog.showAndWait();
+        if (newClub != null) setCurrentClub(newClub);
     }
 
     @FXML
