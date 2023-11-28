@@ -129,6 +129,7 @@ public class SignInOutController implements Initializable {
         } catch (NumberFormatException e) {
             showAlert("Please enter a valid User ID", Alert.AlertType.WARNING);
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert("Warning: Failed to create profile", Alert.AlertType.WARNING);
         }
     }
@@ -143,7 +144,7 @@ public class SignInOutController implements Initializable {
             student = new Student(userId, firstName, lastName, phoneNo, email, password);
 
             if (studentDAO.create(student) != null) {
-                screenController.activate("Login");
+                screenController.activate("SignIn");
             }
         }
     }
