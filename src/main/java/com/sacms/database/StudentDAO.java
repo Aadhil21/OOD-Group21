@@ -56,7 +56,7 @@ public class StudentDAO extends UserDAO<Student> {
                 System.out.println("Student created");
                 return student;
             } else {
-                System.out.println("No data found for the given UID");
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();

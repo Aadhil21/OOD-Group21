@@ -73,6 +73,8 @@ public class SignInOutController implements Initializable {
         if (student != null && student.getPassword().equals(userPassword)) {
             LoginManager.getInstance().login(student);
             screenController.activate("StudentDashboard");
+        } else if (student == null) {
+            showAlert("Account doesn't exist please create one", Alert.AlertType.WARNING);
         } else {
             showAlert("Please enter the correct password", Alert.AlertType.WARNING);
         }
@@ -85,7 +87,9 @@ public class SignInOutController implements Initializable {
         if (advisor != null && advisor.getPassword().equals(userPassword)) {
             LoginManager.getInstance().login(advisor);
             screenController.activate("AdvisorDashboard", true);
-        } else {
+        }else if (advisor == null) {
+            showAlert("Account doesn't exist please create one", Alert.AlertType.WARNING);
+        }  else {
             showAlert("Please enter the correct password", Alert.AlertType.WARNING);
         }
     }
@@ -132,20 +136,30 @@ public class SignInOutController implements Initializable {
     private void createStudent(int userId, String firstName, String lastName,
                                String phoneNo, String email, String password) {
         StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(Student.class);
-        Student student = new Student(userId, firstName, lastName, phoneNo, email, password);
+        Student student = studentDAO.read(userId);
+        if(student != null){
+            showAlert("Account already exist please login", Alert.AlertType.WARNING);
+        }else {
+            student = new Student(userId, firstName, lastName, phoneNo, email, password);
 
-        if (studentDAO.create(student) != null) {
-            screenController.activate("Login");
+            if (studentDAO.create(student) != null) {
+                screenController.activate("Login");
+            }
         }
     }
 
     private void createAdvisor(int userId, String firstName, String lastName,
                                String phoneNo, String email, String password) {
         AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
-        Advisor advisor = new Advisor(userId, firstName, lastName, phoneNo, email, password);
+        Advisor advisor = advisorDAO.read(userId);
+        if(advisor != null) {
+            showAlert("Account already exist please login", Alert.AlertType.WARNING);
+        }else{
+            advisor = new Advisor(userId, firstName, lastName, phoneNo, email, password);
 
-        if (advisorDAO.create(advisor) != null) {
-            screenController.activate("SignIn");
+            if (advisorDAO.create(advisor) != null) {
+                screenController.activate("SignIn");
+            }
         }
     }
 
