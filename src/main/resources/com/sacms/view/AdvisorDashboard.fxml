@@ -27,7 +27,7 @@
             <Menu mnemonicParsing="false" text="Clubs">
               <items>
                 <MenuItem fx:id="menu_switchClub" mnemonicParsing="false" onAction="#onMenuSwitchClubClick" text="Switch club" />
-                  <MenuItem fx:id="menu_newClub" mnemonicParsing="false" onAction="#onMenuNewClubClick" text="Create new club" />
+                  <MenuItem fx:id="menu_newClub" mnemonicParsing="false" onAction="#onMenuNewClubClick" text="Create/Manage Clubs" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="My account">
