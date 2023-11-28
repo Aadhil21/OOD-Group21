@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
+import org.apache.poi.ss.formula.functions.Log;
 
 public class AdvisorDashboard {
     @FXML private VBox vbox_noClubView;
@@ -218,7 +219,7 @@ public class AdvisorDashboard {
 
     @FXML
     void onMenuCloseClick(ActionEvent event) {
-
+        lbl_clubName.getScene().getWindow().hide();
     }
 
     @FXML
@@ -227,8 +228,8 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onMenuSignOutClick(ActionEvent event) {
-
+    void onMenuSignOutClick(ActionEvent ignoredEvent) {
+        LoginManager.getInstance().logout();
     }
 
     @FXML
