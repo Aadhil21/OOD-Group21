@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 public class StudentDashboardController implements Initializable {
 
     private Student student = null;
+    private ClubMembershipDAO membershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
+    private List<Club> list = membershipDAO.getClubsToJoin(student);
 
     @FXML
     private Label email;
@@ -64,8 +66,6 @@ public class StudentDashboardController implements Initializable {
 
     @FXML
     void ShowJoinClubs(ActionEvent event) {
-        ClubMembershipDAO membershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
-        List<Club> list = membershipDAO.getClubsToJoin(student);
         ObservableList<String> observableClubInfoList = FXCollections.observableArrayList();
 
         for (Club club : list) {
@@ -74,6 +74,22 @@ public class StudentDashboardController implements Initializable {
         }
 
         joinClubs.setItems(observableClubInfoList);
+    }
+
+    @FXML
+    void joinClub(ActionEvent event) {
+        String selectedItem = joinClubs.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            for (Club club : list) {
+                if (club.getName().equals(selectedItem)){
+                    ClubMembership membership = new ClubMembership(student,club);
+                    membershipDAO.create(membership);
+                }
+            }
+        } else {
+            System.out.println("No item selected.");
+        }
+
     }
 
 
