@@ -23,7 +23,6 @@ public class ClubDAO implements DAO<Club>{
     public Club create(Club club) {
         final String name = club.getName();
         final int advisorId = club.getAdvisor().getUid();
-
         final String sqlStatement = String.format(
             "INSERT INTO Clubs(name, description) VALUES ('%s', '%d');",
             name, advisorId
