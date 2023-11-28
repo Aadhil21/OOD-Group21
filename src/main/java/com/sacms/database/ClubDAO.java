@@ -14,7 +14,7 @@ public class ClubDAO implements DAO<Club>{
 
     @Override
     public void createTable(){
-        final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY, advisor INTEGER NOT NULL, " +
+        final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY,description TEXT, advisor INTEGER NOT NULL, " +
             "FOREIGN KEY (advisor) REFERENCES Advisor(uid));";
         dbManager.executeSQLStatement(createClubs);
     }
@@ -22,10 +22,11 @@ public class ClubDAO implements DAO<Club>{
     @Override
     public Club create(Club club) {
         final String name = club.getName();
+        final String description = club.getDescription();
         final int advisorId = club.getAdvisor().getUid();
         final String sqlStatement = String.format(
-            "INSERT INTO Clubs(name, description) VALUES ('%s', '%d');",
-            name, advisorId
+            "INSERT INTO Clubs(name, description,advisor) VALUES ('%s','%s', '%d');",
+            name,description, advisorId
         );
 
         dbManager.executeSQLStatement(sqlStatement);

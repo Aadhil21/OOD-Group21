@@ -11,6 +11,7 @@ public class Club {
     static ClubDAO clubDAO = new ClubDAO();
     static EventDAO eventDAO = new EventDAO();
     private String name;
+    private String description;
     private Advisor advisor;
     private List<Event> events;
 
@@ -26,6 +27,14 @@ public class Club {
 
     public void setName() {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Advisor getAdvisor() {
