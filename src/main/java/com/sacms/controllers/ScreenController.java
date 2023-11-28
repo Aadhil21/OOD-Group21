@@ -13,6 +13,7 @@ import java.util.Objects;
 public class ScreenController {
     private final HashMap<String, URL> screenMap = new HashMap<>(100);
     private Stage stage = null;
+    private String sceneName = null;
     private static ScreenController instance = null;
 
     public static ScreenController getInstance() {
@@ -33,8 +34,8 @@ public class ScreenController {
         screenMap.put(name, resource);
     }
 
-    protected void removeScreen(String name){
-        screenMap.remove(name);
+    protected String getSceneName(){
+        return sceneName;
     }
 
     public void activate(String name){
@@ -44,6 +45,7 @@ public class ScreenController {
 
         try {
             Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(screenMap.get(name))));
+            sceneName = name;
             stage.setScene(scene);
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Program crashed! Cannot open window.").showAndWait();

@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SignInView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),600,500);
         stage.setTitle("SACMS!");
         stage.setScene(scene);
@@ -24,11 +24,13 @@ public class Main extends Application {
         ScreenController screenController = ScreenController.getInstance();
         screenController.setStage(stage);
 
-        screenController.addScreen("Login", getClass().getResource("LoginView.fxml"));
+        screenController.addScreen("SignIn", getClass().getResource("SignInView.fxml"));
         screenController.addScreen("SignUp", getClass().getResource("SignUpView.fxml"));
-        screenController.addScreen("AdvisorDashboard", getClass().getResource("AdvisorDashboard.fxml"));
+        screenController.addScreen("AdvisorDashboard", getClass().getResource("view/AdvisorDashboard.fxml"));
         screenController.addScreen("StudentDashboard", getClass().getResource("StudentDashboard.fxml"));
         screenController.addScreen("JoinClub", getClass().getResource("JoinClubView.fxml"));
+
+        screenController.activate("SignIn");
     }
 
     public static void main(String[] args) {
