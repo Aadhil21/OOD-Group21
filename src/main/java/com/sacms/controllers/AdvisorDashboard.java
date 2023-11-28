@@ -82,6 +82,7 @@ public class AdvisorDashboard {
         if (advisor.getClubs().isEmpty()) {
             vbox_noClubView.setVisible(true);
             vbox_clubAdvisorView.setVisible(false);
+            lbl_noClubView_username.setText("Hello " + advisor.getFirstName() + " " + advisor.getLastName() + "!");
         } else {
             vbox_noClubView.setVisible(false);
             vbox_clubAdvisorView.setVisible(true);
