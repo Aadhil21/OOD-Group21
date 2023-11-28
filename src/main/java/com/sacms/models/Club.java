@@ -10,7 +10,6 @@ import java.util.List;
 public class Club {
     static ClubDAO clubDAO = new ClubDAO();
     static EventDAO eventDAO = new EventDAO();
-
     private String name;
     private Advisor advisor;
     private List<Event> events;
