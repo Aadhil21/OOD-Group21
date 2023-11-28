@@ -145,7 +145,7 @@ public class SignInOutController implements Initializable {
         Advisor advisor = new Advisor(userId, firstName, lastName, phoneNo, email, password);
 
         if (advisorDAO.create(advisor) != null) {
-            screenController.activate("Login");
+            screenController.activate("SignIn");
         }
     }
 
