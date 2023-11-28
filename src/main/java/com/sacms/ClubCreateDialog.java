@@ -46,8 +46,8 @@ public class ClubCreateDialog {
         stage.showAndWait();
     }
 
-    public void setClubListChangeListener(Callback<Club, Void> listener) {
+    public void setClubListChangeListener(Callback<Void, Void> listener) {
         if (controller == null) return;
-        controller.setClubListChangeListener(null);
+        controller.setClubListChangeListener(listener);
     }
 }
