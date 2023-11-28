@@ -40,8 +40,7 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
 
     public List<Student> getMembers(Club club) {
         List<Student> students = new ArrayList<>();
-        final String sqlStatement = String.format(
-            "SELECT S.* FROM Members M JOIN Student S ON M.student = S.uid WHERE M.club = '%s';",
+        final String sqlStatement = String.format("SELECT S.* FROM Members M JOIN Student S ON M.student = S.uid WHERE M.club = %d",
             club.getName()
         );
 
@@ -66,12 +65,10 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
     public List<Club> getClubsToJoin(Student student) {
         List<Club> clubs = new ArrayList<>();
         final String sqlStatement = String.format(
-                "SELECT c.name, c.description" +
-                        "FROM Clubs c" +
-                        "LEFT JOIN Members m ON c.name = m.club AND m.student = %d" +
-                        "WHERE m.club IS NULL';",
+                "SELECT c.name, c.description FROM Clubs c LEFT JOIN Members m ON c.name = m.club AND m.student = %d WHERE m.club IS NULL",
                 student.getUid()
         );
+
 
         try (DBManager.ResultContainer results = dbManager.executeSQLQuery(sqlStatement)) {
             ResultSet resultSet = results.resultSet;

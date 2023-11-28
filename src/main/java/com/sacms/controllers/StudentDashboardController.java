@@ -9,8 +9,10 @@ import com.sacms.models.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -21,9 +23,13 @@ import java.util.ResourceBundle;
 
 public class StudentDashboardController implements Initializable {
 
-    private Student student = null;
+
+    private Student student = (Student) LoginManager.getInstance().getCurrentUser();
     private ClubMembershipDAO membershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
     private List<Club> list = membershipDAO.getClubsToJoin(student);
+
+    @FXML
+    public Button joinClubButton;
 
     @FXML
     private Label email;
@@ -57,7 +63,6 @@ public class StudentDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        student = (Student) LoginManager.getInstance().getCurrentUser();
         userName.setText(student.getFirstName() +" "+student.getLastName());
         studentId.setText(String.valueOf(student.getUid()));
         email.setText(student.getEmail());
@@ -65,7 +70,7 @@ public class StudentDashboardController implements Initializable {
     }
 
     @FXML
-    void ShowJoinClubs(ActionEvent event) {
+    void ShowJoinClubs(Event event) {
         ObservableList<String> observableClubInfoList = FXCollections.observableArrayList();
 
         for (Club club : list) {
@@ -94,12 +99,12 @@ public class StudentDashboardController implements Initializable {
 
 
     @FXML
-    void ShowMyMeeting(ActionEvent event) {
+    void ShowMyMeeting(Event event) {
 
     }
 
     @FXML
-    void ShowMyClubs(ActionEvent event) {
+    void ShowMyClubs(Event event) {
 
     }
 
