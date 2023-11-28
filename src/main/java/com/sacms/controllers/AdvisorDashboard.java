@@ -1,5 +1,6 @@
 package com.sacms.controllers;
 
+import com.sacms.ClubCreateDialog;
 import com.sacms.EventAttendanceDialog;
 import com.sacms.NewEventDialog;
 import com.sacms.database.LoginManager;
@@ -223,8 +224,8 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onMenuNewClubClick(ActionEvent event) {
-
+    void onMenuNewClubClick(ActionEvent ignoredEvent) {
+        launchClubCreationView();
     }
 
     @FXML
@@ -238,7 +239,18 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onNoClubViewCreateClub(ActionEvent event) {
+    void onNoClubViewCreateClub(ActionEvent ignoredEvent) {
+        launchClubCreationView();
+    }
 
+    private void launchClubCreationView() {
+        Advisor advisor = (Advisor) loginManager.getCurrentUser();
+        Window window = btn_noClubView_createClub.getScene().getWindow();
+        ClubCreateDialog clubCreateDialog = new ClubCreateDialog(window, advisor);
+        clubCreateDialog.showAndWait();
+
+        if (currentClub != null) return;
+        if (advisor.getClubs().isEmpty()) return;
+        setCurrentClub(advisor.getClubs().get(0));
     }
 }

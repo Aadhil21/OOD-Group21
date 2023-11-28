@@ -1,4 +1,5 @@
 package com.sacms.controllers;
+import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 public class ClubCreationController {
+    private Advisor advisor;
 
     @FXML
     private Button btnAdd;
@@ -33,5 +35,9 @@ public class ClubCreationController {
     @FXML
     void Remove(ActionEvent event) {
 
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
     }
 }
