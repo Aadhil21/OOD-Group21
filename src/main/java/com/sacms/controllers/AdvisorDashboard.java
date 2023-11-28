@@ -75,28 +75,10 @@ public class AdvisorDashboard {
     }
 
     public void initialize() {
-        Advisor advisor = (Advisor) loginManager.getCurrentUser();
-
-        lst_events.setItems(observableEvents);
-        lst_events.setPlaceholder(new Label("No events to display"));
-        lst_events.setCellFactory(eventListView -> new ListCell<>() {
-            @Override
-            protected void updateItem(Event event, boolean empty) {
-                super.updateItem(event, empty);
-                if (event != null && !empty) {
-                    final String event_date = DateTimeUtils.toISODate(event.getStartDate());
-                    final String event_title = event.getTitle();
-
-                    setText(event_date + " --- " + event_title);
-                }
-            };
-        });
-
-        lst_events.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> setSelectedEvent(newValue)
-        );
+        initEventList();
         initEventAttendanceTable();
 
+        Advisor advisor = (Advisor) loginManager.getCurrentUser();
         if (advisor.getClubs().isEmpty()) {
             vbox_noClubView.setVisible(true);
             vbox_clubAdvisorView.setVisible(false);
@@ -109,7 +91,30 @@ public class AdvisorDashboard {
         setSelectedEvent(null);
     }
 
+    private void initEventList() {
+        lst_events.setItems(observableEvents);
+        lst_events.setPlaceholder(new Label("No events to display"));
+        lst_events.setCellFactory(eventListView -> new ListCell<>() {
+            @Override
+            protected void updateItem(Event event, boolean empty) {
+            super.updateItem(event, empty);
+            if (event != null && !empty) {
+                final String event_date = DateTimeUtils.toISODate(event.getStartDate());
+                final String event_title = event.getTitle();
+
+                setText(event_date + " --- " + event_title);
+            }
+        };
+        });
+
+        lst_events.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> setSelectedEvent(newValue)
+        );
+    }
+
     private void initEventAttendanceTable() {
+        tbl_attendance.setItems(eventAttendees);
+
         tcol_studentId.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getUid())));
         tcol_firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
         tcol_lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
@@ -120,25 +125,22 @@ public class AdvisorDashboard {
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (!empty) {
-                    Label lbl_removeAttendance = new Label("Remove Attendance");
-                    lbl_removeAttendance.setTextFill(Color.RED);
-                    lbl_removeAttendance.setUnderline(true);
+                setGraphic(null);
+                if (empty) return;
 
-                    lbl_removeAttendance.setOnMouseClicked(event -> {
-                        Student student = getTableRow().getItem();
-                        selectedEvent.removeAttendee(student);
-                        eventAttendees.remove(student);
-                    });
+                Label lbl_removeAttendance = new Label("Remove Attendance");
+                lbl_removeAttendance.setTextFill(Color.RED);
+                lbl_removeAttendance.setUnderline(true);
 
-                    setGraphic(lbl_removeAttendance);
-                } else {
-                    setGraphic(null);
-                }
+                lbl_removeAttendance.setOnMouseClicked(event -> {
+                    Student student = getTableRow().getItem();
+                    selectedEvent.removeAttendee(student);
+                    eventAttendees.remove(student);
+                });
+
+                setGraphic(lbl_removeAttendance);
             }
         });
-
-        tbl_attendance.setItems(eventAttendees);
     }
 
     private void setCurrentClub(Club club) {
@@ -161,9 +163,11 @@ public class AdvisorDashboard {
 
     private void setSelectedEvent(Event event) {
         selectedEvent = event;
+        refreshEventPane();
+
+        if (event == null) return;
         eventAttendees.clear();
         eventAttendees.addAll(event.getAttendees());
-        refreshEventPane();
     }
 
     private Event getSelectedEvent() {
