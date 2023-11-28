@@ -38,7 +38,7 @@ public class LoginManager {
      */
     public void logout() {
         this.currentUser = null;
-        ScreenController.getInstance().activate("Login");
+        ScreenController.getInstance().activate("SignIn");
     }
 
     /**
