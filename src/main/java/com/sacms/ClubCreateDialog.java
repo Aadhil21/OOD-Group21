@@ -20,7 +20,7 @@ public class ClubCreateDialog {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClubCreationView.fxml"));
-            scene = new Scene(fxmlLoader.load(),400,420);
+            scene = new Scene(fxmlLoader.load(),720,340);
             controller = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class ClubCreateDialog {
         stage.setTitle("Create new club");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        // stage.setResizable(false);
+        stage.setResizable(false);
     }
 
     public void showAndWait() {
