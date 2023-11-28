@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
 public class ClubCreationController {
     private Advisor advisor;
@@ -32,6 +33,7 @@ public class ClubCreationController {
     @FXML
     private TextField txtName;
     private final ObservableList<Club> clubList;
+    private Callback<Void, Void> clubListChangeListener;
 
     public ClubCreationController() {
         clubList = FXCollections.observableArrayList();
@@ -61,6 +63,9 @@ public class ClubCreationController {
 
         advisor.addClub(club);
         clubList.add(club);
+        if (clubListChangeListener != null) {
+            clubListChangeListener.call(null);
+        }
     }
 
     @FXML
@@ -73,6 +78,9 @@ public class ClubCreationController {
 
         advisor.removeClub(selectedClub);
         clubList.remove(selectedClub);
+        if (clubListChangeListener != null) {
+            clubListChangeListener.call(null);
+        }
     }
 
     public void setAdvisor(Advisor advisor) {
@@ -87,5 +95,9 @@ public class ClubCreationController {
         alert.setHeaderText("Data input error!");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setClubListChangeListener(Callback<Void, Void> listener) {
+        this.clubListChangeListener = listener;
     }
 }

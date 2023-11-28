@@ -13,7 +13,7 @@ public class Club {
     private String name;
     private String description;
     private Advisor advisor;
-    private List<Event> events;
+    private final List<Event> events;
 
     public Club(String name, String description, Advisor advisor) {
         this.name = name;
@@ -25,6 +25,7 @@ public class Club {
     public Club(String name, String description) {
         this.name = name;
         this.description = description;
+        this.events = eventDAO.getEventsByClub(this);
     }
 
     public String getName() {
@@ -49,10 +50,6 @@ public class Club {
 
     public void setAdvisor(Advisor advisor) {
         this.advisor = advisor;
-    }
-
-    public void setAllEvents(List<Event> events) {
-        this.events = events;
     }
 
     public List<Event> getAllEvents() {

@@ -148,9 +148,9 @@ public class AdvisorDashboard {
 
     private void setCurrentClub(Club club) {
         currentClub = club;
-        observableEvents.clear();
-        observableEvents.setAll(club.getAllEvents());
         refreshAdvisorView();
+        observableEvents.clear();
+        if (club != null) observableEvents.setAll(club.getAllEvents());
     }
 
     private void refreshAdvisorView() {
@@ -162,6 +162,10 @@ public class AdvisorDashboard {
             vbox_clubAdvisorView.setVisible(true);
             lbl_clubName.setText(currentClub.getName());
         }
+
+        observableEvents.clear();
+        if (currentClub != null)
+            observableEvents.addAll(currentClub.getAllEvents());
     }
 
     private void setSelectedEvent(Event event) {
@@ -247,10 +251,19 @@ public class AdvisorDashboard {
         Advisor advisor = (Advisor) loginManager.getCurrentUser();
         Window window = btn_noClubView_createClub.getScene().getWindow();
         ClubCreateDialog clubCreateDialog = new ClubCreateDialog(window, advisor);
-        clubCreateDialog.showAndWait();
+        clubCreateDialog.setClubListChangeListener(ignored -> {
+            if (advisor.getClubs().isEmpty()) {
+                setCurrentClub(null);
+                return null;
+            }
 
-        if (currentClub != null) return;
-        if (advisor.getClubs().isEmpty()) return;
-        setCurrentClub(advisor.getClubs().get(0));
+            if (currentClub == null || !advisor.getClubs().contains(currentClub)) {
+                setCurrentClub(advisor.getClubs().get(0));
+            }
+
+            return null;
+        });
+
+        clubCreateDialog.showAndWait();
     }
 }

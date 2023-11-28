@@ -3,16 +3,19 @@ package com.sacms;
 import com.sacms.controllers.ClubCreationController;
 import com.sacms.controllers.NewEvent;
 import com.sacms.models.Advisor;
+import com.sacms.models.Club;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 
 import java.io.IOException;
 
 public class ClubCreateDialog {
     private Stage stage;
+    private final ClubCreationController controller;
 
     public ClubCreateDialog(Window parent, Advisor advisor) {
         Scene scene = null;
@@ -26,6 +29,7 @@ public class ClubCreateDialog {
             e.printStackTrace();
         }
 
+        this.controller = controller;
         if (controller == null) return; // If the controller is null, then the scene is null too.
 
         controller.setAdvisor(advisor);
@@ -40,5 +44,10 @@ public class ClubCreateDialog {
     public void showAndWait() {
         if (stage == null) return;
         stage.showAndWait();
+    }
+
+    public void setClubListChangeListener(Callback<Club, Void> listener) {
+        if (controller == null) return;
+        controller.setClubListChangeListener(null);
     }
 }
