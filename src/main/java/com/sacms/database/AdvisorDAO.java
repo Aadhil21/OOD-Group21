@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvisorDAO extends UserDAO<Advisor> {
-
     private static final DBManager dbManager = DBManager.getInstance();
 
+    AdvisorDAO() {}
     @Override
     public void createTable() {
         final String createSql = "CREATE TABLE IF NOT EXISTS Advisor(uid INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, " +
@@ -23,7 +23,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
      * Inserts a new {@link Advisor} into the database.
      *
      * @param advisor The {@link Advisor} to be inserted.
-     * @return
+     * @return The {@link Advisor} that was inserted with correct UID.
      */
     @Override
     public Advisor create(Advisor advisor) {
@@ -36,8 +36,7 @@ public class AdvisorDAO extends UserDAO<Advisor> {
 
         final String sqlStatement = String.format("INSERT INTO Advisor(uid, first_name, last_name, phone, email, password) " + "VALUES (%d, '%s', '%s', '%s','%s', '%s');", username, firstName, lastName, phone, email, password);
 
-        dbManager.executeSQLStatement(sqlStatement);
-        System.out.println("inserted advisor");
+        advisor.setId(dbManager.executeSQLStatement(sqlStatement));
         return advisor;
     }
 

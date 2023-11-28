@@ -6,6 +6,7 @@ package com.sacms.database;
  * @param <T> The type of user to be stored in the database.
  */
 public abstract class UserDAO<T> implements DAO<T> {
+    UserDAO() {}
     /**
      * This method creates the table for the user type if the table does not already exist.
      */

@@ -15,6 +15,7 @@ import java.util.List;
 public class ClubMembershipDAO implements DAO<ClubMembership> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    ClubMembershipDAO() {}
 
     @Override
     public void createTable() {

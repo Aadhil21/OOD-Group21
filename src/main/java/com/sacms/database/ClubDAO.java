@@ -12,6 +12,8 @@ import java.util.List;
 public class ClubDAO implements DAO<Club>{
     private static final DBManager dbManager = DBManager.getInstance();
 
+    ClubDAO() {}
+
     @Override
     public void createTable(){
         final String createClubs = "CREATE TABLE IF NOT EXISTS Clubs(name TEXT PRIMARY KEY,description TEXT, advisor INTEGER NOT NULL, " +

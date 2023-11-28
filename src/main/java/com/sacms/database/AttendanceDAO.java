@@ -15,6 +15,8 @@ import com.sacms.models.Student;
 public class AttendanceDAO implements DAO<EventAttendee> {
     private static final DBManager dbManager = DBManager.getInstance();
 
+    AttendanceDAO() {}
+
     @Override
     public void createTable() {
         final String createEventAttendance = "CREATE TABLE IF NOT EXISTS EventAttendance(event INTEGER, participant INTEGER, " +

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ReportDAO {
-
     private static final DBManager dbManager = DBManager.getInstance();
 
     public ResultSet GetMembershipReport(String ClubName) throws SQLException {
