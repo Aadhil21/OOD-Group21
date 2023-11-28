@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class ClubCreationController {
@@ -15,6 +16,9 @@ public class ClubCreationController {
 
     @FXML
     private Button btnRemove;
+
+    @FXML
+    private TableView<?> clubTable;
 
     @FXML
     private TableColumn<?, ?> colDesc;
@@ -30,15 +34,16 @@ public class ClubCreationController {
 
     @FXML
     void Add(ActionEvent event) {
-        // TODO: Put real values for CLUB_NAME and CLUB_DESCRIPTION
-        Club club = new Club("CLUB_NAME", "CLUB_DESCRIPTION");
+        String name = txtName.getText();
+        String description = txtDescription.getText();
+        Club club = new Club(name,description);
         advisor.addClub(club);
     }
 
     @FXML
     void Remove(ActionEvent event) {
-        // TODO: Get the selected club from the table then delete. Following is an example.
-        // advisor.removeClub(club);
+        Club selectedClub = (Club) clubTable.getSelectionModel().getSelectedItem(); //using typecast to confirm the returned object is from Club
+        advisor.removeClub(selectedClub);
     }
 
     public void setAdvisor(Advisor advisor) {
