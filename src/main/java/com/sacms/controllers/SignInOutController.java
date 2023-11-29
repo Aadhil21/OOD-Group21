@@ -72,7 +72,7 @@ public class SignInOutController implements Initializable {
 
         if (student != null && student.getPassword().equals(userPassword)) {
             LoginManager.getInstance().login(student);
-            screenController.activate("StudentDashboard");
+            screenController.activate("StudentDashboard", true);
         } else if (student == null) {
             showAlert("Account doesn't exist please create one", Alert.AlertType.WARNING);
         } else {

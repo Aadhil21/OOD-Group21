@@ -1,118 +1,37 @@
 package com.sacms.controllers;
 
-import com.sacms.database.ClubMembershipDAO;
-import com.sacms.database.DAOFactory;
-import com.sacms.database.LoginManager;
 import com.sacms.models.Club;
-import com.sacms.models.ClubMembership;
-import com.sacms.models.Student;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.sacms.models.Event;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+public class StudentDashboardController {
+    @FXML private Button btnLeaveClub;
 
-public class StudentDashboardController implements Initializable {
+    @FXML private Label lbl_event_desc;
+    @FXML private Label lbl_event_endDate;
+    @FXML private Label lbl_event_endTime;
+    @FXML private Label lbl_event_name;
+    @FXML private Label lbl_event_startDate;
+    @FXML private Label lbl_event_startTime;
 
+    @FXML private Label lbl_student_mail;
+    @FXML private Label lbl_student_name;
+    @FXML private Label lbl_student_phone;
 
-    private Student student = (Student) LoginManager.getInstance().getCurrentUser();
-    private ClubMembershipDAO membershipDAO = (ClubMembershipDAO) DAOFactory.getInstance().getDAO(ClubMembership.class);
-    private List<Club> list = membershipDAO.getClubsToJoin(student);
-
+    @FXML private ListView<Club> lst_clubs;
+    @FXML private ListView<Event> lst_events;
     @FXML
-    public Button joinClubButton;
-
-    @FXML
-    private Label email;
-
-    @FXML
-    private ListView<String> joinClubs;
-
-    @FXML
-    private Tab joinClubsList;
-
-    @FXML
-    private ListView<String> joinMeeting;
-
-    @FXML
-    private Tab myClubs;
-
-    @FXML
-    private ListView<String> myClubsList;
-
-    @FXML
-    private Tab myMeetingList;
-
-    @FXML
-    private Label phoneNo;
-
-    @FXML
-    private Label studentId;
-
-    @FXML
-    private Label userName;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        userName.setText(student.getFirstName() +" "+student.getLastName());
-        studentId.setText(String.valueOf(student.getUid()));
-        email.setText(student.getEmail());
-        phoneNo.setText(student.getPhone());
-    }
-
-    @FXML
-    void ShowJoinClubs(Event event) {
-        ObservableList<String> observableClubInfoList = FXCollections.observableArrayList();
-
-        for (Club club : list) {
-            String clubInfo = club.getName() + ": " + club.getDescription();
-            observableClubInfoList.add(clubInfo);
-        }
-
-        joinClubs.setItems(observableClubInfoList);
-    }
-
-    @FXML
-    void joinClub(ActionEvent event) {
-        String selectedItem = joinClubs.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            for (Club club : list) {
-                if (club.getName().equals(selectedItem)){
-                    ClubMembership membership = new ClubMembership(student,club);
-                    membershipDAO.create(membership);
-                }
-            }
-        } else {
-            System.out.println("No item selected.");
-        }
-
-    }
-
-
-    @FXML
-    void ShowMyMeeting(Event event) {
+    void onJoinBtnClick(ActionEvent ignoredEvent) {
 
     }
 
     @FXML
-    void ShowMyClubs(Event event) {
+    void onLeaveClub(ActionEvent ignoredEvent) {
 
     }
 
-    @FXML
-    void logOut(ActionEvent event) {
-        LoginManager.getInstance().logout();
-
-    }
 }
-
-
