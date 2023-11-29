@@ -90,7 +90,7 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
         AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
         List<Club> clubs = new ArrayList<>();
         final String sqlStatement = String.format(
-                "SELECT c.name, c.description, c.advisor FROM Clubs c LEFT JOIN Members m ON c.name = m.club AND m.student = %d",
+                "SELECT Clubs.* FROM Clubs JOIN Members ON Clubs.name = Members.club WHERE Members.student = %d;",
                 student.getUid()
         );
 

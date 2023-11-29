@@ -58,13 +58,15 @@ public class StudentDashboardController {
         initClubList();
         initEventList();
 
+        clubs.setAll(student.getClubs());
+
         btnLeaveClub.setDisable(true);
     }
 
     private void initClubList() {
         lst_clubs.setItems(clubs);
         lst_clubs.setPlaceholder(new Label("No clubs to display"));
-        lst_clubs.setCellFactory(eventListView -> new ListCell<>() {
+        lst_clubs.setCellFactory(clubsListView -> new ListCell<>() {
             @Override
             protected void updateItem(Club club, boolean empty) {
                 super.updateItem(club, empty);
@@ -108,13 +110,10 @@ public class StudentDashboardController {
 
     private void setSelectedClub(Club club) {
         this.selectedClub = club;
-        this.clubs.clear();
         events.clear();
         btnLeaveClub.setDisable(club == null);
 
         if (club == null) return;
-
-        this.clubs.addAll(student.getClubs());
         events.addAll(club.getAllEvents());
     }
 
