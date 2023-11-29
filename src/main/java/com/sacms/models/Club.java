@@ -1,6 +1,5 @@
 package com.sacms.models;
 
-import com.sacms.database.ClubDAO;
 import com.sacms.database.ClubMembershipDAO;
 import com.sacms.database.DAOFactory;
 import com.sacms.database.EventDAO;
@@ -36,7 +35,7 @@ public class Club {
     }
 
     public String getDescription() {
-        return description;
+        return !description.isBlank() ? description : "No description provided";
     }
 
     public void setDescription(String description) {
