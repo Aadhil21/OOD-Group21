@@ -1,6 +1,7 @@
 package com.sacms.database;
 
 import com.sacms.models.*;
+import com.sacms.util.Report;
 
 public class DAOFactory {
     private static DAOFactory instance = null;
@@ -11,6 +12,7 @@ public class DAOFactory {
     private final EventDAO eventDAO;
     private final AttendanceDAO attendanceDAO;
     private final StudentDAO studentDAO;
+    private final ReportDAO reportDAO;
 
     private DAOFactory() {
         this.advisorDAO = new AdvisorDAO();
@@ -19,6 +21,7 @@ public class DAOFactory {
         this.eventDAO = new EventDAO();
         this.attendanceDAO = new AttendanceDAO();
         this.studentDAO = new StudentDAO();
+        this.reportDAO = new ReportDAO();
     }
 
     public static DAOFactory getInstance() {
@@ -47,6 +50,7 @@ public class DAOFactory {
         if (dao == Event.class) return (DAO<T>) this.eventDAO;
         if (dao == EventAttendee.class) return (DAO<T>) this.attendanceDAO;
         if (dao == Student.class) return (DAO<T>) this.studentDAO;
+        if (dao == Report.class) return (DAO<T>) this.reportDAO;
 
         return null;
     }

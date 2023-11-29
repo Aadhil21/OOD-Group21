@@ -1,6 +1,9 @@
 package com.sacms.util;
 
+import com.sacms.database.DAOFactory;
 import com.sacms.database.ReportDAO;
+import com.sacms.database.StudentDAO;
+import com.sacms.models.Student;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -14,7 +17,7 @@ import java.sql.SQLException;
 
 public class Report {
 
-    ReportDAO reportDAO = new ReportDAO();
+    ReportDAO reportDAO = (ReportDAO) DAOFactory.getInstance().getDAO(Student.class);
 
     public void ClubMembershipReport(String clubName) throws SQLException {
         String excelFilePath = "Report/" + clubName + "MembershipReport" + DateTimeUtils.getDateTime() + ".xlsx";
