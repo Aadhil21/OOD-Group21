@@ -1,9 +1,6 @@
 package com.sacms.util;
 
-import com.sacms.database.DAOFactory;
 import com.sacms.database.ReportDAO;
-import com.sacms.database.StudentDAO;
-import com.sacms.models.Student;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class Report {
+public class Report<IOException> {
 
     ReportDAO reportDAO = new ReportDAO();
 
@@ -73,9 +70,9 @@ public class Report {
             // Write data to Excel file
             try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
                 workbook.write(outputStream);
+                System.out.println("Excel file created successfully!");
+                workbook.close();
             }
-
-            System.out.println("Excel file created successfully!");
         } catch (Exception e) {
             e.printStackTrace();
         }

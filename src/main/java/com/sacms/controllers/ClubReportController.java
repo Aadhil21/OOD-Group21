@@ -71,16 +71,16 @@ public class ClubReportController {
         members.clear();
         members.addAll(club.getMembers());
 
-//        Report report = new Report();
-//        try {
-//            report.ClubActivityReport(club.getName());
-//            report.ClubMembershipReport(club.getName());
-//            for (Event event : club.getAllEvents()) {
-//                report.EventAttendanceReport(event.getTitle());
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        Report report = new Report();
+        try {
+            report.ClubActivityReport(club.getName());
+            report.ClubMembershipReport(club.getName());
+            for (Event event : club.getAllEvents()) {
+                report.EventAttendanceReport(event.getTitle());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void initialize() {
