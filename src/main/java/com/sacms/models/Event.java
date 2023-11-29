@@ -13,6 +13,7 @@ public class Event {
     private int id;
     private Club club;
     private String title;
+    private String description;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalTime startTime;
@@ -57,6 +58,14 @@ public class Event {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return !description.isBlank() ? description : "No description provided";
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getStartDate() {
