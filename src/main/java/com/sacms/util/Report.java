@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class Report {
 
-    ReportDAO reportDAO = (ReportDAO) DAOFactory.getInstance().getDAO(Student.class);
+    ReportDAO reportDAO = new ReportDAO();
 
     public void ClubMembershipReport(String clubName) throws SQLException {
         String excelFilePath = "Report/" + clubName + "MembershipReport" + DateTimeUtils.getDateTime() + ".xlsx";

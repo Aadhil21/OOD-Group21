@@ -4,11 +4,14 @@ import com.sacms.models.Club;
 import com.sacms.models.Event;
 import com.sacms.models.Student;
 import com.sacms.util.DateTimeUtils;
+import com.sacms.util.Report;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.sql.SQLException;
 
 public class ClubReportController {
 
@@ -67,6 +70,17 @@ public class ClubReportController {
         events.addAll(club.getAllEvents());
         members.clear();
         members.addAll(club.getMembers());
+
+//        Report report = new Report();
+//        try {
+//            report.ClubActivityReport(club.getName());
+//            report.ClubMembershipReport(club.getName());
+//            for (Event event : club.getAllEvents()) {
+//                report.EventAttendanceReport(event.getTitle());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void initialize() {
