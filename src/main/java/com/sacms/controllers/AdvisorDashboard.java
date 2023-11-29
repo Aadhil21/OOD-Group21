@@ -1,9 +1,6 @@
 package com.sacms.controllers;
 
-import com.sacms.ClubCreateDialog;
-import com.sacms.EventAttendanceDialog;
-import com.sacms.NewEventDialog;
-import com.sacms.SwitchClubDialog;
+import com.sacms.*;
 import com.sacms.database.LoginManager;
 import com.sacms.models.Advisor;
 import com.sacms.models.Club;
@@ -218,8 +215,10 @@ public class AdvisorDashboard {
     }
 
     @FXML
-    void onBtnGenerateClubReport(ActionEvent event) {
-
+    void onBtnGenerateClubReport(ActionEvent ignoredEvent) {
+        Window window = btn_generateClubReport.getScene().getWindow();
+        ClubReportDialog clubReportDialog = new ClubReportDialog(window, currentClub);
+        clubReportDialog.show();
     }
 
     @FXML
