@@ -53,6 +53,8 @@ public class ClubReportController {
     }
 
     public void setClub(Club club) {
+        if (club == null) return;
+
         lbl_clubName.setText(club.getName());
         lbl_clubDescription.setText(club.getDescription());
         lbl_advisorId.setText(String.valueOf(club.getAdvisor().getUid()));
@@ -60,6 +62,11 @@ public class ClubReportController {
         lbl_advisorLastName.setText(club.getAdvisor().getLastName());
         lbl_advisorEmail.setText(club.getAdvisor().getEmail());
         lbl_advisorPhone.setText(club.getAdvisor().getPhone());
+
+        events.clear();
+        events.addAll(club.getAllEvents());
+        members.clear();
+        members.addAll(club.getMembers());
     }
 
     public void initialize() {

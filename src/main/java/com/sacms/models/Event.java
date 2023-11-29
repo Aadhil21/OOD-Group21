@@ -61,6 +61,7 @@ public class Event {
     }
 
     public String getDescription() {
+        if (description == null) return "No description provided";
         return !description.isBlank() ? description : "No description provided";
     }
 
