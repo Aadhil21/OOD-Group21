@@ -1,5 +1,6 @@
 package com.sacms.database;
 
+import com.sacms.models.Advisor;
 import com.sacms.models.Club;
 import com.sacms.models.ClubMembership;
 import com.sacms.models.Student;
@@ -77,6 +78,32 @@ public class ClubMembershipDAO implements DAO<ClubMembership> {
                 final String clubdesc = resultSet.getString("description");
 
                 Club club = new Club(clubname,clubdesc);
+                clubs.add(club);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return clubs;
+    }
+
+    public List<Club> getClubs(Student student) {
+        AdvisorDAO advisorDAO = (AdvisorDAO) DAOFactory.getInstance().getDAO(Advisor.class);
+        List<Club> clubs = new ArrayList<>();
+        final String sqlStatement = String.format(
+                "SELECT c.name, c.description, c.advisor FROM Clubs c LEFT JOIN Members m ON c.name = m.club AND m.student = %d",
+                student.getUid()
+        );
+
+
+        try (DBManager.ResultContainer results = dbManager.executeSQLQuery(sqlStatement)) {
+            ResultSet resultSet = results.resultSet;
+            while (resultSet.next()) {
+                final String clubName = resultSet.getString("name");
+                final String clubDesc = resultSet.getString("description");
+                final int advisorId = resultSet.getInt("advisor");
+                final Advisor advisor = advisorDAO.read(advisorId);
+
+                Club club = new Club(clubName, clubDesc, advisor);
                 clubs.add(club);
             }
         } catch (SQLException e) {
